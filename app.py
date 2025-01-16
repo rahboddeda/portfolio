@@ -1,6 +1,10 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, flash, redirect, url_for
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = 'your-secret-key'  # Change this to a secure secret key
 
 @app.route('/')
 def index():
@@ -128,6 +132,54 @@ def index():
         ]
     }
     return render_template('index.html', data=data)
+
+@app.route('/send_email', methods=['POST'])
+def send_email():
+    name = request.form.get('name')
+    email = request.form.get('email')
+    subject = request.form.get('subject')
+    message = request.form.get('message')
+    
+    # Email configuration
+    sender_email = "your-email@gmail.com"  # Your Gmail address
+    sender_password = "your-app-password"   # Your Gmail app password
+    receiver_email = "rahulboddeda@gmail.com"
+    
+    # Create message
+    msg = MIMEMultipart()
+    msg['From'] = sender_email
+    msg['To'] = receiver_email
+    msg['Subject'] = f"Portfolio Contact: {subject}"
+    
+    body = f"""
+    Name: {name}
+    Email: {email}
+    Subject: {subject}
+    
+    Message:
+    {message}
+    """
+    
+    msg.attach(MIMEText(body, 'plain'))
+    
+    try:
+        # Create server
+        server = smtplib.SMTP('smtp.gmail.com', 587)
+        server.starttls()
+        
+        # Login
+        server.login(sender_email, sender_password)
+        
+        # Send email
+        text = msg.as_string()
+        server.sendmail(sender_email, receiver_email, text)
+        server.quit()
+        
+        flash('Message sent successfully!', 'success')
+    except Exception as e:
+        flash('Failed to send message. Please try again.', 'error')
+    
+    return redirect(url_for('index', _anchor='contact'))
 
 if __name__ == '__main__':
     app.run(debug=True) 
