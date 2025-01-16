@@ -1,0 +1,12 @@
+portfolio/
+├── static/
+│   ├── css/
+│   │   └── style.css
+│   ├── js/
+│   │   └── main.js
+│   └── images/
+├── templates/
+│   ├── base.html
+│   └── index.html
+├── app.py
+└── requirements.txt 

@@ -1,0 +1,247 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section id="home" class="hero">
+    <div class="hero-content animate-left">
+        <h1>Hi, I'm {{ data.name }}</h1>
+        <h2>{{ data.title }}</h2>
+        <p>{{ data.description }}</p>
+        <div class="social-links">
+            <a href="{{ data.social_links.github }}" target="_blank"><i class="fab fa-github"></i></a>
+            <a href="{{ data.social_links.linkedin }}" target="_blank"><i class="fab fa-linkedin"></i></a>
+        </div>
+        <button class="contact-btn">Contact Me <i class="fas fa-arrow-right"></i></button>
+    </div>
+    <div class="hero-image animate-right">
+        <div class="image-container">
+            <img src="{{ url_for('static', filename='images/profile.png') }}" alt="{{ data.name }}">
+        </div>
+    </div>
+</section>
+
+<section id="about" class="about">
+    <h2 class="section-title">About Me</h2>
+    <div class="about-content">
+        <div class="about-text animate-up">
+            <p>{{ data.about }}</p>
+        </div>
+        <div class="stats animate-up">
+            <div class="stat-item">
+                <span class="stat-number">{{ data.years_exp }}</span>
+                <p>Years of<br>Experience</p>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">{{ data.completed_projects }}</span>
+                <p>Completed<br>Projects</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="experience" class="portfolio">
+    <h2 class="section-title">Experience</h2>
+    <div class="experience-grid">
+        {% for exp in data.experience %}
+        <div class="experience-item animate-up">
+            <div class="experience-header">
+                <div class="experience-title">
+                    <h3>{{ exp.title }}</h3>
+                    <span class="experience-duration">{{ exp.duration }}</span>
+                </div>
+                <div class="experience-image">
+                    <img src="{{ url_for('static', filename='images/' + exp.image) }}" alt="{{ exp.title }}">
+                </div>
+            </div>
+            <div class="experience-content">
+                <div class="experience-description">
+                    <h4>Key Achievements:</h4>
+                    <ul>
+                        {% for point in exp.description.split('. ') %}
+                            {% if point %}
+                                <li>{{ point }}.</li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="certificate-preview">
+                    <h4>Certificate:</h4>
+                    <div class="certificate-image">
+                        <img src="{{ url_for('static', filename='images/' + exp.image) }}" 
+                             alt="Internship Certificate">
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+<section id="projects" class="projects">
+    <h2 class="section-title">Projects</h2>
+    <div class="projects-grid">
+        {% for project in data.projects %}
+        <div class="project-card animate-up">
+            <div class="project-icon">
+                <i class="fas {{ project.icon }}"></i>
+            </div>
+            <h3>{{ project.title }}</h3>
+            <div class="project-details">
+                <ul>
+                    {% for point in project.description %}
+                    <li>{{ point }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+<section id="skills" class="skills">
+    <h2 class="section-title">Skills</h2>
+    <div class="skills-container">
+        <div class="frontend-skills animate-left">
+            <h3><i class="fas fa-code"></i> Frontend Developer</h3>
+            {% for skill, level in data.skills.frontend.items() %}
+            <div class="skill">
+                <div class="skill-header">
+                    <span class="skill-name">{{ skill }}</span>
+                    <span class="skill-percentage">{{ level }}%</span>
+                </div>
+                <div class="skill-bar">
+                    <div class="skill-level" data-level="{{ level }}"></div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="backend-skills animate-right">
+            <h3><i class="fas fa-server"></i> Backend Developer</h3>
+            {% for skill, level in data.skills.backend.items() %}
+            <div class="skill">
+                <div class="skill-header">
+                    <span class="skill-name">{{ skill }}</span>
+                    <span class="skill-percentage">{{ level }}%</span>
+                </div>
+                <div class="skill-bar">
+                    <div class="skill-level" data-level="{{ level }}"></div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section id="education" class="education">
+    <h2 class="section-title">Education</h2>
+    <div class="education-content animate-up">
+        {% for edu in data.education %}
+        <div class="education-item">
+            <h3>{{ edu.degree }}</h3>
+            <p class="institution">{{ edu.institution }}</p>
+            <p class="year">{{ edu.year }}</p>
+            {% if edu.CGPA %}
+                <p class="score">CGPA: {{ edu.CGPA }}</p>
+            {% elif edu.Marks %}
+                <p class="score">Marks: {{ edu.Marks }}</p>
+            {% elif edu.Percentage %}
+                <p class="score">Percentage: {{ edu.Percentage }}</p>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+<section id="certifications" class="certifications">
+    <h2 class="section-title">Certifications</h2>
+    <div class="certifications-grid">
+        {% for cert in data.certifications %}
+        <div class="certification-card card-hover-effect animate-up">
+            <div class="certification-header">
+                <div class="certification-icon">
+                    <i class="fas {{ cert.icon }}"></i>
+                </div>
+                <h3>{{ cert.title }}</h3>
+                <div class="certification-meta">
+                    <span class="issuer">{{ cert.issuer }}</span>
+                    <span class="date">{{ cert.date }}</span>
+                </div>
+            </div>
+            <div class="certification-content">
+                <ul>
+                    {% for point in cert.points %}
+                    <li>{{ point }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+<section id="responsibilities" class="responsibilities">
+    <h2 class="section-title">Positions of Responsibility</h2>
+    <div class="responsibilities-grid">
+        {% for resp in data.responsibilities %}
+        <div class="responsibility-card card-hover-effect animate-up">
+            <div class="responsibility-header">
+                <div class="responsibility-icon">
+                    <i class="fas {{ resp.icon }}"></i>
+                </div>
+                <h3>{{ resp.title }}</h3>
+                <span class="duration">{{ resp.duration }}</span>
+            </div>
+            <div class="responsibility-content">
+                <ul>
+                    {% for point in resp.points %}
+                    <li>{{ point }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+<section id="contact" class="contact">
+    <h2 class="section-title">Contact Me</h2>
+    <div class="contact-container">
+        <div class="contact-info animate-left">
+            <h3>Let's talk about everything!</h3>
+            <p>Don't like forms? Send me an email. 👋</p>
+            <div class="contact-details">
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <span>{{ data.contact.email }}</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <span>{{ data.contact.phone }}</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>{{ data.contact.location }}</span>
+                </div>
+            </div>
+        </div>
+        <div class="contact-form animate-right">
+            <form>
+                <div class="form-group">
+                    <input type="text" placeholder="Name" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" placeholder="Email" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" placeholder="Subject" required>
+                </div>
+                <div class="form-group">
+                    <textarea placeholder="Message" required></textarea>
+                </div>
+                <button type="submit" class="submit-btn">
+                    Send Message <i class="fas fa-paper-plane"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %} 
