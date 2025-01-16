@@ -179,6 +179,98 @@ body {
     .hero {
         flex-direction: column;
         text-align: center;
+        padding-top: 100px;
+        min-height: auto;
+    }
+    
+    .hero h1 {
+        font-size: 2.2rem;
+    }
+    
+    .hero h2 {
+        font-size: 1.5rem;
+    }
+    
+    .hero-image {
+        margin-top: 2rem;
+        width: 250px;
+        height: 250px;
+    }
+    
+    .experience-content {
+        grid-template-columns: 1fr !important;
+    }
+    
+    .experience-header {
+        flex-direction: column;
+    }
+    
+    .experience-header h3 {
+        max-width: 100%;
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+    }
+    
+    .contact-container {
+        grid-template-columns: 1fr !important;
+        gap: 2rem;
+    }
+    
+    .contact-info {
+        text-align: center;
+    }
+    
+    .contact-details {
+        justify-content: center;
+    }
+    
+    .form-group input,
+    .form-group textarea {
+        font-size: 16px;
+    }
+    
+    .hamburger {
+        display: flex;
+    }
+    
+    .nav-logo {
+        font-size: 1.2rem;
+    }
+    
+    .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 250px;
+        height: 100vh;
+        background: white;
+        flex-direction: column;
+        padding-top: 80px;
+        transition: right 0.3s ease;
+        box-shadow: -2px 0 5px rgba(0,0,0,0.1);
+        overflow-y: auto;
+    }
+    
+    .nav-links.active {
+        right: 0;
+    }
+    
+    .nav-links li {
+        margin: 1rem 0;
+        text-align: center;
+    }
+    
+    .skills-container {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+    }
+    
+    .projects-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .certifications-grid {
+        grid-template-columns: 1fr;
     }
 } 
 
