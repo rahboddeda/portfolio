@@ -10,7 +10,7 @@ app.config['SECRET_KEY'] = 'your-secret-key'  # Change this to a secure secret k
 def index():
     data = {
         'name': 'Rahul Boddeda',
-        'title': 'Machine Learning Developer',
+        'title': 'Frontend Developer',
         'description': 'good at in Machine Learning and Web-development, producing quality work.',
         'about': """Motivated Computer Science student with hands-on experience in developing AI-driven solutions, web
  applications, and software platforms. Eager to leverage technical skills in machine learning, data science, and
