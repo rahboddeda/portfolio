@@ -4,42 +4,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rahul Boddeda - Portfolio</title>
-    <!-- Scifi-style font, Orbitron, is imported for a futuristic look -->
+    <!-- Sci-fi/Magic font, Orbitron, for the dark theme -->
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <!-- Classic font, Inter, for the light theme -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Three.js for 3D hero animation in dark mode -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <style>
         /* CSS Variables for each theme */
         :root {
             /* Fallback colors for dark mode */
-            --bg-color: #0b0c10;
+            --bg-color: #19142f; /* Deep blue/purple for magic theme */
             --text-color: #d1d1d1;
-            --primary-accent: #00e5ff;
-            --secondary-accent: #ff00e5;
+            --primary-accent: #00aaff; /* Mystical blue-green */
+            --secondary-accent: #b02fdd; /* Deep purple */
             --card-bg: #1a1a2e;
             --nav-bg: #1a1a2e;
             --footer-bg: #1a1a2e;
-            --glow-color: #00e5ff;
-            --glow-secondary: #a22fff;
-            --border-color: #ff00e5;
-            --button-bg: #ff00e5;
+            --glow-color: #00aaff;
+            --glow-secondary: #b02fdd;
+            --border-color: #b02fdd;
+            --button-bg: #b02fdd;
             --button-text: #000;
         }
 
         /* Dark Theme Styles (default) */
         [data-theme="dark"] {
-            --bg-color: #0b0c10;
-            --text-color: #d1d1d1;
-            --primary-accent: #00e5ff;
-            --secondary-accent: #a22fff;
-            --card-bg: #1a1a2e;
-            --nav-bg: rgba(11, 12, 16, 0.9);
-            --footer-bg: #0b0c10;
-            --glow-color: #00e5ff;
-            --glow-secondary: #a22fff;
-            --border-color: #ff00e5;
-            --button-bg: #00e5ff;
+            --bg-color: #19142f; /* Deep blue/purple */
+            --text-color: #e0e0e0;
+            --primary-accent: #00aaff;
+            --secondary-accent: #b02fdd;
+            --card-bg: #2d1c47;
+            --nav-bg: rgba(25, 20, 47, 0.9);
+            --footer-bg: #19142f;
+            --glow-color: #00aaff;
+            --glow-secondary: #b02fdd;
+            --border-color: #b02fdd;
+            --button-bg: #00aaff;
             --button-text: #000;
             font-family: 'Orbitron', sans-serif;
         }
@@ -253,9 +255,9 @@
             box-shadow: 0 0 15px var(--secondary-accent), 0 0 25px var(--secondary-accent);
         }
         [data-theme="dark"] #scroll-to-top:hover {
-            background-color: #ff00e5;
+            background-color: var(--glow-secondary);
             transform: translateY(-2px) scale(1.05);
-            box-shadow: 0 0 20px #ff00e5;
+            box-shadow: 0 0 20px var(--glow-secondary);
         }
         [data-theme="light"] #scroll-to-top:hover {
             background-color: var(--primary-accent);
@@ -347,6 +349,30 @@
             opacity: 0;
         }
 
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        /* Canvas styles for positioning and responsiveness */
+        #hero-canvas-3d, #hero-canvas-2d {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+        
+        /* Ensure only one canvas is visible at a time */
+        [data-theme="light"] #hero-canvas-3d,
+        [data-theme="dark"] #hero-canvas-2d {
+            display: none;
+        }
+        
     </style>
 </head>
 <body data-theme="dark">
@@ -384,8 +410,9 @@
 
     <!-- Hero Section -->
     <section id="home" class="relative h-screen flex items-center justify-center text-center overflow-hidden bg-gradient-to-br from-[var(--bg-color)] to-[var(--card-bg)]">
-        <!-- Particle Background Canvas -->
-        <canvas id="particles-js" class="absolute inset-0 z-0"></canvas>
+        <!-- Canvases for 2D particles and 3D scene -->
+        <canvas id="hero-canvas-2d" class="absolute inset-0 z-0"></canvas>
+        <canvas id="hero-canvas-3d" class="absolute inset-0 z-0"></canvas>
 
         <div class="relative z-10 p-6 rounded-lg hero-container max-w-4xl mx-auto">
             <h1 class="text-5xl md:text-7xl font-extrabold mb-4 leading-tight hero-text-animation">
@@ -394,9 +421,14 @@
             <p class="text-2xl md:text-3xl text-gray-300 mb-8 typing-effect" style="color: var(--text-color);">
                 A Computer Science Undergraduate
             </p>
-            <a href="#about" class="inline-block font-bold py-3 px-8 rounded-full shadow-lg transform hover:scale-105 transition-all duration-300" style="background-color: var(--button-bg); color: var(--button-text);">
-                Learn More About Me
-            </a>
+            <div class="hero-buttons">
+                <a href="#about" class="inline-block font-bold py-3 px-8 rounded-full shadow-lg transform hover:scale-105 transition-all duration-300" style="background-color: var(--button-bg); color: var(--button-text);">
+                    Learn More About Me
+                </a>
+                <a href="https://drive.google.com/file/d/1tmj60v2KMZ_anoDZ8CAWFaUUW9giTAGp/view?usp=sharing" target="_blank" class="inline-block font-bold py-3 px-8 rounded-full shadow-lg transform hover:scale-105 transition-all duration-300" style="background-color: var(--secondary-accent); color: white;">
+                    Download Resume
+                </a>
+            </div>
         </div>
     </section>
 
@@ -619,7 +651,7 @@
     <!-- Footer -->
     <footer class="py-8 text-center text-sm" style="background-color: var(--footer-bg); color: var(--text-color);">
         <p>&copy; 2025 Rahul Boddeda. All rights reserved.</p>
-        <p>Built with ❤️ and a Scifi touch</p>
+        
     </footer>
 
     <!-- Scroll to Top Button -->
@@ -636,105 +668,80 @@
     </div>
 
     <script>
-        // Mobile menu toggle
-        const mobileMenuButton = document.getElementById('mobile-menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
+        // Global variables for both animation loops
+        let animationFrameId;
+        const body = document.body;
+        
+        // Dark Mode (Three.js) variables
+        let scene, camera, renderer, sphere, canvas3d;
 
-        mobileMenuButton.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
-
-        // Close mobile menu when a link is clicked
-        mobileMenu.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.add('hidden');
-            });
-        });
-
-        // Section fade-in on scroll
-        const sections = document.querySelectorAll('.section-fade-in');
-
-        const observerOptions = {
-            root: null,
-            rootMargin: '0px',
-            threshold: 0.1
-        };
-
-        const observer = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('is-visible');
-                    observer.unobserve(entry.target); // Stop observing once visible
-                }
-            });
-        }, observerOptions);
-
-        sections.forEach(section => {
-            observer.observe(section);
-        });
-
-        // Typing effect for hero section
-        const typingTextElement = document.querySelector('.typing-effect');
-        const phrases = ["A Computer Science Undergraduate", "An AI Enthusiast", "A Full-Stack Developer"];
-        let phraseIndex = 0;
-        let charIndex = 0;
-        let isDeleting = false;
-
-        function typeWriter() {
-            const currentPhrase = phrases[phraseIndex];
-            if (isDeleting) {
-                typingTextElement.textContent = currentPhrase.substring(0, charIndex - 1);
-                charIndex--;
-            } else {
-                typingTextElement.textContent = currentPhrase.substring(0, charIndex + 1);
-                charIndex++;
-            }
-
-            let typingSpeed = 100; // Speed for typing
-            if (isDeleting) {
-                typingSpeed /= 2; // Faster deletion
-            }
-
-            if (!isDeleting && charIndex === currentPhrase.length) {
-                typingSpeed = 1500; // Pause at end of phrase
-                isDeleting = true;
-            } else if (isDeleting && charIndex === 0) {
-                isDeleting = false;
-                phraseIndex = (phraseIndex + 1) % phrases.length;
-                typingSpeed = 500; // Pause before typing next phrase
-            }
-
-            setTimeout(typeWriter, typingSpeed);
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            // Delay for hero text animation to complete before starting typing effect
-            setTimeout(() => {
-                typeWriter();
-            }, 1000); // Adjust this delay based on hero-text-animation duration
-        });
-
-        // Hero text animation (individual span fade-in)
-        const heroTextSpans = document.querySelectorAll('.hero-text-animation span');
-        heroTextSpans.forEach((span, index) => {
-            span.style.animationDelay = `${index * 0.05}s`; // Stagger animation
-        });
-
-        // Particle background animation (simple canvas-based)
-        const canvas = document.getElementById('particles-js');
-        const ctx = canvas.getContext('2d');
+        // Light Mode (2D Particles) variables
         let particles = [];
         const numParticles = 80;
         const particleSize = 1.5;
         const particleSpeed = 0.5;
+        let canvas2d, ctx;
 
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            particles = []; // Clear and re-create particles on resize
-            initParticles();
+
+        // Helper function to stop the current animation loop
+        function stopAnimation() {
+            if (animationFrameId) {
+                cancelAnimationFrame(animationFrameId);
+                animationFrameId = undefined;
+            }
         }
 
+        // --- Dark Mode Animation (Three.js) ---
+        function initMagicSphere() {
+            stopAnimation();
+
+            canvas3d = document.getElementById('hero-canvas-3d');
+            scene = new THREE.Scene();
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            
+            // Check if renderer already exists to avoid re-creation
+            if (!renderer) {
+                renderer = new THREE.WebGLRenderer({ canvas: canvas3d, antialias: true, alpha: true });
+            }
+            renderer.setSize(window.innerWidth, window.innerHeight);
+
+            // Create a glowing, magical sphere
+            const geometry = new THREE.IcosahedronGeometry(3, 1);
+            const material = new THREE.MeshPhongMaterial({
+                color: 0x00aaff, // Primary magic color
+                emissive: 0x00aaff, // Ethereal glow
+                emissiveIntensity: 1,
+                shininess: 100,
+                specular: 0x00aaff,
+            });
+            sphere = new THREE.Mesh(geometry, material);
+            scene.add(sphere);
+
+            // Add ambient light for a subtle base color
+            const ambientLight = new THREE.AmbientLight(0x404040, 1); // soft white light
+            scene.add(ambientLight);
+
+            // Add a point light to highlight the sphere
+            const pointLight = new THREE.PointLight(0xb02fdd, 2, 100); // Deep purple light
+            pointLight.position.set(5, 5, 5);
+            scene.add(pointLight);
+
+            camera.position.z = 5;
+
+            animateMagicSphere();
+        }
+
+        function animateMagicSphere() {
+            animationFrameId = requestAnimationFrame(animateMagicSphere);
+            // Animate the sphere
+            if (sphere) {
+                sphere.rotation.x += 0.005;
+                sphere.rotation.y += 0.005;
+            }
+            renderer.render(scene, camera);
+        }
+
+        // --- Light Mode Animation (2D Particles) ---
         class Particle {
             constructor(x, y) {
                 this.x = x;
@@ -742,18 +749,17 @@
                 this.size = Math.random() * particleSize + 0.5;
                 this.speedX = Math.random() * particleSpeed * 2 - particleSpeed;
                 this.speedY = Math.random() * particleSpeed * 2 - particleSpeed;
-                this.color = `rgba(0, 229, 255, ${Math.random() * 0.5 + 0.2})`; /* Electric blue shades */
+                this.color = `rgba(0, 229, 255, ${Math.random() * 0.5 + 0.2})`;
             }
 
             update() {
                 this.x += this.speedX;
                 this.y += this.speedY;
 
-                // Wrap particles around the screen
-                if (this.x < 0) this.x = canvas.width;
-                if (this.x > canvas.width) this.x = 0;
-                if (this.y < 0) this.y = canvas.height;
-                if (this.y > canvas.height) this.y = 0;
+                if (this.x < 0) this.x = canvas2d.width;
+                if (this.x > canvas2d.width) this.x = 0;
+                if (this.y < 0) this.y = canvas2d.height;
+                if (this.y > canvas2d.height) this.y = 0;
             }
 
             draw() {
@@ -765,78 +771,110 @@
         }
 
         function initParticles() {
+            stopAnimation();
+            canvas2d = document.getElementById('hero-canvas-2d');
+            ctx = canvas2d.getContext('2d');
+            particles = [];
             for (let i = 0; i < numParticles; i++) {
-                particles.push(new Particle(Math.random() * canvas.width, Math.random() * canvas.height));
+                particles.push(new Particle(Math.random() * canvas2d.width, Math.random() * canvas2d.height));
             }
+            animateParticles();
         }
 
         function animateParticles() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear canvas
+            animationFrameId = requestAnimationFrame(animateParticles);
+            ctx.clearRect(0, 0, canvas2d.width, canvas2d.height);
             for (let i = 0; i < particles.length; i++) {
                 particles[i].update();
                 particles[i].draw();
-
-                // Draw lines between nearby particles
-                for (let j = i; j < particles.length; j++) {
-                    const dx = particles[i].x - particles[j].x;
-                    const dy = particles[i].y - particles[j].y;
-                    const distance = Math.sqrt(dx * dx + dy * dy);
-
-                    if (distance < 100) { // Only connect if close enough
-                        ctx.strokeStyle = `rgba(0, 229, 255, ${1 - (distance / 100)})`;
-                        ctx.lineWidth = 0.2;
-                        ctx.beginPath();
-                        ctx.moveTo(particles[i].x, particles[i].y);
-                        ctx.lineTo(particles[j].x, particles[j].y);
-                        ctx.stroke();
-                    }
-                }
             }
-            requestAnimationFrame(animateParticles);
         }
+        
+        // --- Theme Switching Logic ---
+        function handleThemeSwitch() {
+            stopAnimation(); // Stop any running animation first
+            const currentTheme = body.getAttribute('data-theme');
+            const canvas3d = document.getElementById('hero-canvas-3d');
+            const canvas2d = document.getElementById('hero-canvas-2d');
 
-        window.addEventListener('resize', resizeCanvas);
-        window.onload = function() {
-            resizeCanvas(); // Initial resize and particle creation
-            animateParticles(); // Start the animation loop
-        }
-
-        // Scroll to top button functionality
-        const scrollToTopButton = document.getElementById('scroll-to-top');
-
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 300) { // Show button after scrolling 300px
-                scrollToTopButton.classList.add('show');
+            if (currentTheme === 'dark') {
+                canvas3d.style.display = 'block';
+                canvas2d.style.display = 'none';
+                initMagicSphere();
             } else {
-                scrollToTopButton.classList.remove('show');
+                canvas2d.style.display = 'block';
+                canvas3d.style.display = 'none';
+                initParticles();
             }
-        });
-
-        scrollToTopButton.addEventListener('click', () => {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth' // Smooth scroll
-            });
-        });
-
-        // Dark/Light Mode Toggle Functionality
-        const themeToggleBtn = document.getElementById('theme-toggle');
-        const body = document.body;
-        const sunIcon = document.getElementById('sun-icon');
-        const moonIcon = document.getElementById('moon-icon');
-
-        // Check for saved theme preference or system preference
-        const savedTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-        if (savedTheme) {
-            body.setAttribute('data-theme', savedTheme);
+            resizeCanvas();
         }
 
+        function resizeCanvas() {
+            const currentTheme = body.getAttribute('data-theme');
+            if (currentTheme === 'dark' && renderer) {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            } else if (currentTheme === 'light' && canvas2d) {
+                canvas2d.width = window.innerWidth;
+                canvas2d.height = window.innerHeight;
+            }
+        }
+
+        // Event listeners
+        const themeToggleBtn = document.getElementById('theme-toggle');
         themeToggleBtn.addEventListener('click', () => {
-            let currentTheme = body.getAttribute('data-theme');
-            let newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            const currentTheme = body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
             body.setAttribute('data-theme', newTheme);
             localStorage.setItem('theme', newTheme);
+            handleThemeSwitch();
         });
+
+        // Initial setup on window load
+        window.onload = function() {
+            const savedTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+            body.setAttribute('data-theme', savedTheme);
+            handleThemeSwitch();
+            window.addEventListener('resize', resizeCanvas);
+
+            // Mobile menu toggle
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenuButton.addEventListener('click', () => { mobileMenu.classList.toggle('hidden'); });
+            mobileMenu.querySelectorAll('a').forEach(link => { link.addEventListener('click', () => { mobileMenu.classList.add('hidden'); }); });
+
+            // Section fade-in on scroll
+            const sections = document.querySelectorAll('.section-fade-in');
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('is-visible'); observer.unobserve(entry.target); } });
+            }, { root: null, rootMargin: '0px', threshold: 0.1 });
+            sections.forEach(section => observer.observe(section));
+            
+            // Typing effect for hero section
+            const typingTextElement = document.querySelector('.typing-effect');
+            const phrases = ["A Computer Science Undergraduate", "An AI Enthusiast", "A Full-Stack Developer"];
+            let phraseIndex = 0; let charIndex = 0; let isDeleting = false;
+            function typeWriter() {
+                const currentPhrase = phrases[phraseIndex];
+                if (isDeleting) { typingTextElement.textContent = currentPhrase.substring(0, charIndex - 1); charIndex--; }
+                else { typingTextElement.textContent = currentPhrase.substring(0, charIndex + 1); charIndex++; }
+                let typingSpeed = isDeleting ? 50 : 100;
+                if (!isDeleting && charIndex === currentPhrase.length) { typingSpeed = 1500; isDeleting = true; }
+                else if (isDeleting && charIndex === 0) { isDeleting = false; phraseIndex = (phraseIndex + 1) % phrases.length; typingSpeed = 500; }
+                setTimeout(typeWriter, typingSpeed);
+            }
+            setTimeout(() => { typeWriter(); }, 1000);
+
+            // Hero text animation
+            const heroTextSpans = document.querySelectorAll('.hero-text-animation span');
+            heroTextSpans.forEach((span, index) => { span.style.animationDelay = `${index * 0.05}s`; });
+
+            // Scroll to top button
+            const scrollToTopButton = document.getElementById('scroll-to-top');
+            window.addEventListener('scroll', () => { if (window.scrollY > 300) { scrollToTopButton.classList.add('show'); } else { scrollToTopButton.classList.remove('show'); }});
+            scrollToTopButton.addEventListener('click', () => { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+        }
     </script>
 </body>
 </html>
