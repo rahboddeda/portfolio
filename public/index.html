@@ -4,44 +4,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rahul Boddeda - Portfolio</title>
-    <!-- Sci-fi/Magic font, Orbitron, for the dark theme -->
+    <!-- Cyber-Noir font for the dark theme -->
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <!-- Classic font, Inter, for the light theme -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Three.js for 3D hero animation in dark mode -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <style>
         /* CSS Variables for each theme */
         :root {
             /* Fallback colors for dark mode */
-            --bg-color: #19142f; /* Deep blue/purple for magic theme */
-            --text-color: #d1d1d1;
-            --primary-accent: #00aaff; /* Mystical blue-green */
-            --secondary-accent: #b02fdd; /* Deep purple */
-            --card-bg: #1a1a2e;
-            --nav-bg: #1a1a2e;
-            --footer-bg: #1a1a2e;
-            --glow-color: #00aaff;
-            --glow-secondary: #b02fdd;
-            --border-color: #b02fdd;
-            --button-bg: #b02fdd;
+            --bg-color: #0a0a0a;
+            --text-color: #e0e0e0;
+            --primary-accent: #00ffff;
+            --secondary-accent: #39ff14;
+            --card-bg: #1a1a1a;
+            --nav-bg: #1a1a1a;
+            --footer-bg: #1a1a1a;
+            --glow-color: #00ffff;
+            --glow-secondary: #39ff14;
+            --border-color: #4a4a4a;
+            --button-bg: #00ffff;
             --button-text: #000;
         }
 
         /* Dark Theme Styles (default) */
         [data-theme="dark"] {
-            --bg-color: #19142f; /* Deep blue/purple */
+            --bg-color: #0a0a0a; /* Cyber-Noir deep black */
             --text-color: #e0e0e0;
-            --primary-accent: #00aaff;
-            --secondary-accent: #b02fdd;
-            --card-bg: #2d1c47;
-            --nav-bg: rgba(25, 20, 47, 0.9);
-            --footer-bg: #19142f;
-            --glow-color: #00aaff;
-            --glow-secondary: #b02fdd;
-            --border-color: #b02fdd;
-            --button-bg: #00aaff;
+            --primary-accent: #00ffff; /* Electric cyan */
+            --secondary-accent: #39ff14; /* Neon green */
+            --card-bg: #1a1a1a;
+            --nav-bg: rgba(10, 10, 10, 0.9);
+            --footer-bg: #1a1a1a;
+            --glow-color: #00ffff;
+            --glow-secondary: #39ff14;
+            --border-color: #4a4a4a;
+            --button-bg: #00ffff;
             --button-text: #000;
             font-family: 'Orbitron', sans-serif;
         }
@@ -117,7 +115,7 @@
         /* Hero section with a glowing border and a subtle pulse animation */
         [data-theme="dark"] .hero-container {
             border-radius: 1rem;
-            background: rgba(10, 11, 14, 0.7);
+            background: rgba(10, 10, 10, 0.7);
             backdrop-filter: blur(5px);
             box-shadow: 0 0 10px var(--glow-color), 0 0 20px var(--glow-color), inset 0 0 10px var(--glow-color);
             animation: glow 1.5s infinite alternate;
@@ -414,11 +412,11 @@
         <canvas id="hero-canvas-2d" class="absolute inset-0 z-0"></canvas>
         <canvas id="hero-canvas-3d" class="absolute inset-0 z-0"></canvas>
 
-        <div class="relative z-10 p-6 rounded-lg hero-container max-w-4xl mx-auto">
-            <h1 class="text-5xl md:text-7xl font-extrabold mb-4 leading-tight hero-text-animation">
+        <div class="relative z-10 p-6 rounded-lg hero-container max-w-2xl mx-auto">
+            <h1 class="text-4xl md:text-5xl font-extrabold mb-4 leading-tight hero-text-animation">
                 <span>H</span><span>i</span><span>,</span> <span>I</span><span>'</span><span>m</span> <span class="name-char">R</span><span class="name-char">a</span><span class="name-char">h</span><span class="name-char">u</span><span class="name-char">l</span> <span class="name-char">B</span><span class="name-char">o</span><span class="name-char">d</span><span class="name-char">d</span><span class="name-char">e</span><span class="name-char">d</span><span class="name-char">a</span>
             </h1>
-            <p class="text-2xl md:text-3xl text-gray-300 mb-8 typing-effect" style="color: var(--text-color);">
+            <p class="text-xl md:text-2xl text-gray-300 mb-8 typing-effect" style="color: var(--text-color);">
                 A Computer Science Undergraduate
             </p>
             <div class="hero-buttons">
@@ -668,157 +666,11 @@
     </div>
 
     <script>
-        // Global variables for both animation loops
-        let animationFrameId;
         const body = document.body;
-        
-        // Dark Mode (Three.js) variables
-        let scene, camera, renderer, sphere, canvas3d;
-
-        // Light Mode (2D Particles) variables
-        let particles = [];
-        const numParticles = 80;
-        const particleSize = 1.5;
-        const particleSpeed = 0.5;
-        let canvas2d, ctx;
-
-
-        // Helper function to stop the current animation loop
-        function stopAnimation() {
-            if (animationFrameId) {
-                cancelAnimationFrame(animationFrameId);
-                animationFrameId = undefined;
-            }
-        }
-
-        // --- Dark Mode Animation (Three.js) ---
-        function initMagicSphere() {
-            stopAnimation();
-
-            canvas3d = document.getElementById('hero-canvas-3d');
-            scene = new THREE.Scene();
-            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-            
-            // Check if renderer already exists to avoid re-creation
-            if (!renderer) {
-                renderer = new THREE.WebGLRenderer({ canvas: canvas3d, antialias: true, alpha: true });
-            }
-            renderer.setSize(window.innerWidth, window.innerHeight);
-
-            // Create a glowing, magical sphere
-            const geometry = new THREE.IcosahedronGeometry(3, 1);
-            const material = new THREE.MeshPhongMaterial({
-                color: 0x00aaff, // Primary magic color
-                emissive: 0x00aaff, // Ethereal glow
-                emissiveIntensity: 1,
-                shininess: 100,
-                specular: 0x00aaff,
-            });
-            sphere = new THREE.Mesh(geometry, material);
-            scene.add(sphere);
-
-            // Add ambient light for a subtle base color
-            const ambientLight = new THREE.AmbientLight(0x404040, 1); // soft white light
-            scene.add(ambientLight);
-
-            // Add a point light to highlight the sphere
-            const pointLight = new THREE.PointLight(0xb02fdd, 2, 100); // Deep purple light
-            pointLight.position.set(5, 5, 5);
-            scene.add(pointLight);
-
-            camera.position.z = 5;
-
-            animateMagicSphere();
-        }
-
-        function animateMagicSphere() {
-            animationFrameId = requestAnimationFrame(animateMagicSphere);
-            // Animate the sphere
-            if (sphere) {
-                sphere.rotation.x += 0.005;
-                sphere.rotation.y += 0.005;
-            }
-            renderer.render(scene, camera);
-        }
-
-        // --- Light Mode Animation (2D Particles) ---
-        class Particle {
-            constructor(x, y) {
-                this.x = x;
-                this.y = y;
-                this.size = Math.random() * particleSize + 0.5;
-                this.speedX = Math.random() * particleSpeed * 2 - particleSpeed;
-                this.speedY = Math.random() * particleSpeed * 2 - particleSpeed;
-                this.color = `rgba(0, 229, 255, ${Math.random() * 0.5 + 0.2})`;
-            }
-
-            update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
-
-                if (this.x < 0) this.x = canvas2d.width;
-                if (this.x > canvas2d.width) this.x = 0;
-                if (this.y < 0) this.y = canvas2d.height;
-                if (this.y > canvas2d.height) this.y = 0;
-            }
-
-            draw() {
-                ctx.fillStyle = this.color;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
-            }
-        }
-
-        function initParticles() {
-            stopAnimation();
-            canvas2d = document.getElementById('hero-canvas-2d');
-            ctx = canvas2d.getContext('2d');
-            particles = [];
-            for (let i = 0; i < numParticles; i++) {
-                particles.push(new Particle(Math.random() * canvas2d.width, Math.random() * canvas2d.height));
-            }
-            animateParticles();
-        }
-
-        function animateParticles() {
-            animationFrameId = requestAnimationFrame(animateParticles);
-            ctx.clearRect(0, 0, canvas2d.width, canvas2d.height);
-            for (let i = 0; i < particles.length; i++) {
-                particles[i].update();
-                particles[i].draw();
-            }
-        }
         
         // --- Theme Switching Logic ---
         function handleThemeSwitch() {
-            stopAnimation(); // Stop any running animation first
             const currentTheme = body.getAttribute('data-theme');
-            const canvas3d = document.getElementById('hero-canvas-3d');
-            const canvas2d = document.getElementById('hero-canvas-2d');
-
-            if (currentTheme === 'dark') {
-                canvas3d.style.display = 'block';
-                canvas2d.style.display = 'none';
-                initMagicSphere();
-            } else {
-                canvas2d.style.display = 'block';
-                canvas3d.style.display = 'none';
-                initParticles();
-            }
-            resizeCanvas();
-        }
-
-        function resizeCanvas() {
-            const currentTheme = body.getAttribute('data-theme');
-            if (currentTheme === 'dark' && renderer) {
-                camera.aspect = window.innerWidth / window.innerHeight;
-                camera.updateProjectionMatrix();
-                renderer.setSize(window.innerWidth, window.innerHeight);
-            } else if (currentTheme === 'light' && canvas2d) {
-                canvas2d.width = window.innerWidth;
-                canvas2d.height = window.innerHeight;
-            }
         }
 
         // Event listeners
@@ -836,7 +688,6 @@
             const savedTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
             body.setAttribute('data-theme', savedTheme);
             handleThemeSwitch();
-            window.addEventListener('resize', resizeCanvas);
 
             // Mobile menu toggle
             const mobileMenuButton = document.getElementById('mobile-menu-button');
