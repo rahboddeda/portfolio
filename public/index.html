@@ -79,14 +79,39 @@
         }
 
         @media (max-width: 640px) {
-            .hero-background {
-                height: 70vh;
-            }
-            .section-header {
-                font-size: 1.75rem;
-                letter-spacing: 0.1em;
-            }
-        }
+
+    /* Shorter hero height for mobile */
+    .hero-background {
+        height: 85vh; /* more height to fit text + image */
+    }
+
+    /* Make RAHUL BODDEDA fit perfectly */
+    .hero-title {
+        font-size: 4.2rem !important;  /* smaller but still bold */
+        letter-spacing: -0.03em !important;
+        line-height: 0.75 !important;  /* tighter vertical spacing */
+        text-align: center;
+        word-break: break-word;
+        position: relative;
+        top: -150px;
+    }
+
+    /* Zoom profile picture for mobile */
+    .profile-photo-overlay {
+        width: 70% !important;    /* bigger */
+        height: 70% !important;
+        top: 48% !important;      /* center better */
+        background-size: cover;
+        transform: translate(-50%, -50%) scale(1.15) !important; /* zoom-in */
+    }
+
+    /* Section header slightly smaller */
+    .section-header {
+        font-size: 1.6rem;
+        letter-spacing: 0.08em;
+    }
+}
+
         /* Timeline styling remains the same */
         .timeline-item {
             position: relative;
@@ -269,7 +294,7 @@
         <!-- Profile Photo Layer (Z-20) - Placed visually on top of the text -->
         <!-- Note: Replace the placeholder image URL with your actual professional photo for the final deployment. -->
         <div class="profile-photo-overlay absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[280px] h-[280px] sm:w-[400px] sm:h-[400px] bg-center bg-cover z-20 duration-300 hover:scale-[1.02]"
-             style="background-image: url('profile.png'); background-color: #ffffff00; border-radius: 0%; width: 50%; height: 60%; top: 45%;">
+             style="background-image: url('profile.png'); background-color: #ffffff00; border-radius: 0%; width: 50%; height: 60%; top: 43%;">
         </div>
         
         <!-- Secondary Title/Descriptor Overlay (Z-30) -->
@@ -545,4 +570,3 @@ window.addEventListener("scroll", () => {
 
 
 </html>
-
