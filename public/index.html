@@ -3,732 +3,545 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rahul Boddeda - Portfolio</title>
-    <!-- Cyber-Noir font for the dark theme -->
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <!-- Classic font, Inter, for the light theme -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>Rahul Boddeda | Portfolio</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
     <style>
-        /* CSS Variables for each theme */
+        /* Custom styles to emulate the high-contrast, professional F1 look */
         :root {
-            /* Fallback colors for dark mode */
-            --bg-color: #0a0a0a;
-            --text-color: #e0e0e0;
-            --primary-accent: #00ffff;
-            --secondary-accent: #39ff14;
-            --card-bg: #1a1a1a;
-            --nav-bg: #1a1a1a;
-            --footer-bg: #1a1a1a;
-            --glow-color: #00ffff;
-            --glow-secondary: #39ff14;
-            --border-color: #4a4a4a;
-            --button-bg: #00ffff;
-            --button-text: #000;
-        }
-
-        /* Dark Theme Styles (default) */
-        [data-theme="dark"] {
-            --bg-color: #0a0a0a; /* Cyber-Noir deep black */
-            --text-color: #e0e0e0;
-            --primary-accent: #00ffff; /* Electric cyan */
-            --secondary-accent: #39ff14; /* Neon green */
-            --card-bg: #1a1a1a;
-            --nav-bg: rgba(10, 10, 10, 0.9);
-            --footer-bg: #1a1a1a;
-            --glow-color: #00ffff;
-            --glow-secondary: #39ff14;
-            --border-color: #4a4a4a;
-            --button-bg: #00ffff;
-            --button-text: #000;
-            font-family: 'Orbitron', sans-serif;
-        }
-
-        /* Light Theme Styles (classic CS) */
-        [data-theme="light"] {
-            --bg-color: #f0f4f8; /* Light gray background */
-            --text-color: #2d3748; /* Dark text */
-            --primary-accent: #3182ce; /* Tailwind blue-600 */
-            --secondary-accent: #48bb78; /* Tailwind green-500 */
-            --card-bg: #ffffff;
-            --nav-bg: rgba(255, 255, 255, 0.9);
-            --footer-bg: #ffffff;
-            --glow-color: transparent; /* No glow in light mode */
-            --glow-secondary: transparent;
-            --border-color: #e2e8f0;
-            --button-bg: #48bb78;
-            --button-text: #ffffff;
-            font-family: 'Inter', sans-serif;
+            --accent-color: #A3FF00; /* Neon Green/Yellow for F1 vibe */
+            --dark-background: #080808; /* Even darker, near black */
+            --light-text: #F9FAFB;
         }
 
         body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            scroll-behavior: smooth;
-            transition: background-color 0.3s ease, color 0.3s ease;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--dark-background);
+            color: var(--light-text);
         }
 
-        /* Custom scrollbar for aesthetics with vibrant colors */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: var(--nav-bg);
-        }
-        ::-webkit-scrollbar-thumb {
-            background: var(--primary-accent);
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--secondary-accent);
+        .text-accent {
+            color: var(--accent-color);
         }
 
-        /* General sections with padding and margin */
-        .section-fade-in {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-        }
-        .section-fade-in.is-visible {
-            opacity: 1;
-            transform: translateY(0);
+        .border-accent {
+            border-color: var(--accent-color);
         }
 
-        /* Hero text animation with individual letter staggering */
-        .hero-text-animation span {
-            opacity: 0;
-            transform: translateY(20px);
-            display: inline-block;
-            animation: fadeInSlideUp 0.8s forwards;
-        }
-        .hero-text-animation .name-char {
-            color: var(--primary-accent);
+        .bg-card {
+            background-color: #1a1a1a; /* Darker card background */
         }
 
-        @keyframes fadeInSlideUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
+        .section-header {
+            font-size: 2.5rem;
+            font-weight: 900; 
+            text-transform: uppercase;
+            letter-spacing: 0.2em; /* Wider tracking for dramatic effect */
+            margin-bottom: 2.5rem;
+            border-bottom: 3px solid var(--accent-color);
+            padding-bottom: 0.5rem;
+        }
+
+        /* Hero Section Styling: Now focusing on Z-index stacking */
+        .hero-background {
+            background-color: var(--dark-background); /* Explicitly set dark background */
+            height: 100vh; /* Full viewport height on load */
+        }
+        
+        /* New Hero Text Styling for the dramatic masked effect */
+        .hero-title {
+            font-size: 7rem; /* Large font size for impact */
+            font-weight: 900;
+            line-height: 0.8;
+            letter-spacing: -0.05em;
+            text-transform: uppercase;
+            /* Text is semi-transparent, sitting behind the main portrait */
+            color: transparent;
+            /* Using a subtle background image to show through the transparent text */
+            background-image: url('https://placehold.co/1920x1080/111/AAA?text=SUBTLE+TEXTURE'); 
+            background-clip: text;
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: rgba(255, 255, 255, 0.15); /* Slightly less opaque white */
+            filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.5));
+            transition: all 0.5s;
+        }
+
+        /* Mobile Adjustments */
+        @media (min-width: 640px) {
+            .hero-title {
+                font-size: 10rem;
+            }
+        }
+        @media (min-width: 1024px) {
+            .hero-title {
+                font-size: 15rem; /* Massive size on desktop */
             }
         }
 
-        /* Hero section with a glowing border and a subtle pulse animation */
-        [data-theme="dark"] .hero-container {
-            border-radius: 1rem;
-            background: rgba(10, 10, 10, 0.7);
-            backdrop-filter: blur(5px);
-            box-shadow: 0 0 10px var(--glow-color), 0 0 20px var(--glow-color), inset 0 0 10px var(--glow-color);
-            animation: glow 1.5s infinite alternate;
+        @media (max-width: 640px) {
+            .hero-background {
+                height: 70vh;
+            }
+            .section-header {
+                font-size: 1.75rem;
+                letter-spacing: 0.1em;
+            }
         }
-        @keyframes glow {
-            from { box-shadow: 0 0 5px var(--glow-color), 0 0 10px var(--glow-color), inset 0 0 5px var(--glow-color); }
-            to { box-shadow: 0 0 15px var(--glow-color), 0 0 25px var(--glow-color), inset 0 0 15px var(--glow-color); }
-        }
-
-        [data-theme="light"] .hero-container {
-            border-radius: 1rem;
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(5px);
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        /* Typing effect with a cursor that matches the new color */
-        .typing-effect::after {
-            content: '|';
-            animation: blink-caret 0.75s step-end infinite;
-            color: var(--secondary-accent);
-        }
-        @keyframes blink-caret {
-            from, to { border-color: transparent }
-            50% { border-color: var(--secondary-accent); }
-        }
-
-        /* Scifi card styling for dark theme */
-        [data-theme="dark"] .scifi-card {
-            background-color: var(--card-bg); /* Darker, themed background */
-            border-radius: 8px;
+        /* Timeline styling remains the same */
+        .timeline-item {
             position: relative;
-            overflow: hidden;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            padding-left: 2rem;
+            margin-bottom: 2.5rem;
         }
-        [data-theme="dark"] .scifi-card::before {
+
+        .timeline-item::before {
             content: '';
             position: absolute;
-            top: 0; left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, var(--primary-accent), var(--secondary-accent)); /* Gradient glow */
-            opacity: 0.1;
-            transition: opacity 0.3s ease;
-            z-index: -1;
-        }
-        [data-theme="dark"] .scifi-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 0 15px var(--glow-color); /* Glowing shadow on hover */
-        }
-
-        /* Card styling for light theme */
-        [data-theme="light"] .scifi-card {
-            background-color: var(--card-bg);
-            border: 1px solid #e2e8f0;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        [data-theme="light"] .scifi-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
-        }
-        
-        .skill-item {
-            position: relative;
-            overflow: hidden;
-            transition: background-color 0.3s ease;
-        }
-        [data-theme="dark"] .skill-item:hover {
-            background-color: #2d3748;
-        }
-        [data-theme="light"] .skill-item:hover {
-            background-color: #e2e8f0;
-        }
-        .skill-item::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
-            transition: left 0.5s ease;
-        }
-        .skill-item:hover::before {
-            left: 100%;
-        }
-
-        /* Social icon hover effect with glow */
-        .social-icon {
-            transition: transform 0.3s ease, text-shadow 0.3s ease, color 0.3s ease;
-        }
-        [data-theme="dark"] .social-icon:hover {
-            transform: translateY(-3px) scale(1.1);
-            color: var(--primary-accent);
-            text-shadow: 0 0 8px var(--primary-accent), 0 0 15px var(--primary-accent);
-        }
-        [data-theme="light"] .social-icon:hover {
-            transform: translateY(-3px) scale(1.1);
-            color: var(--primary-accent);
-            text-shadow: none;
-        }
-
-        /* Scroll to top button with a glow effect */
-        #scroll-to-top {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background-color: var(--secondary-accent);
-            color: white;
-            padding: 12px 15px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-            z-index: 1000;
-        }
-        [data-theme="dark"] #scroll-to-top {
-             box-shadow: 0 0 10px var(--secondary-accent);
-        }
-        [data-theme="light"] #scroll-to-top {
-             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        #scroll-to-top.show {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
-        }
-        [data-theme="dark"] #scroll-to-top.show {
-            box-shadow: 0 0 15px var(--secondary-accent), 0 0 25px var(--secondary-accent);
-        }
-        [data-theme="dark"] #scroll-to-top:hover {
-            background-color: var(--glow-secondary);
-            transform: translateY(-2px) scale(1.05);
-            box-shadow: 0 0 20px var(--glow-secondary);
-        }
-        [data-theme="light"] #scroll-to-top:hover {
-            background-color: var(--primary-accent);
-        }
-
-        /* Navbar style changes for light theme */
-        [data-theme="light"] nav {
-            background-color: var(--nav-bg);
-            border-bottom: 1px solid #e2e8f0;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        }
-        [data-theme="light"] nav a {
-            color: var(--text-color);
-        }
-        [data-theme="light"] nav a:hover {
-            color: var(--primary-accent);
-        }
-        
-        /* New styles for the floating toggle button */
-        #floating-toggle-container {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            z-index: 1000;
-        }
-
-        /* Styles for the theme toggle button */
-        #theme-toggle {
-            position: relative;
-            width: 50px;
-            height: 25px;
-            border-radius: 25px;
-            cursor: pointer;
-            border: 2px solid var(--primary-accent);
-            background-color: transparent;
-            transition: all 0.3s ease-in-out;
-        }
-
-        /* The sliding 'thumb' */
-        #theme-toggle::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            background-color: var(--primary-accent);
-            transition: all 0.3s ease-in-out;
-        }
-        
-        [data-theme="dark"] #theme-toggle::before {
-            left: 25px;
-        }
-
-        [data-theme="light"] #theme-toggle::before {
-            left: 2px;
-        }
-
-        /* Icons inside the button */
-        #theme-toggle svg {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 18px;
-            height: 18px;
-            transition: opacity 0.3s ease;
-        }
-
-        #sun-icon {
-            left: 5px;
-            color: var(--text-color); /* Correct color for icon */
-        }
-        #moon-icon {
-            left: 27px;
-            color: var(--text-color); /* Correct color for icon */
-        }
-
-        [data-theme="dark"] #sun-icon {
-            opacity: 0;
-        }
-        [data-theme="dark"] #moon-icon {
-            opacity: 1;
-        }
-        [data-theme="light"] #sun-icon {
-            opacity: 1;
-        }
-        [data-theme="light"] #moon-icon {
-            opacity: 0;
-        }
-
-        .hero-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-top: 2rem;
-        }
-        
-        /* Canvas styles for positioning and responsiveness */
-        #hero-canvas-3d, #hero-canvas-2d {
-            position: absolute;
-            top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            pointer-events: none;
+            top: 5px;
+            width: 12px;
+            height: 12px;
+            background-color: var(--accent-color);
+            border-radius: 50%;
+            border: 3px solid var(--dark-background);
+            z-index: 10;
         }
-        
-        /* Ensure only one canvas is visible at a time */
-        [data-theme="light"] #hero-canvas-3d,
-        [data-theme="dark"] #hero-canvas-2d {
-            display: none;
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            left: 5px;
+            top: 15px;
+            bottom: -2.5rem;
+            width: 2px;
+            background-color: #374151; /* Subtle gray line */
+            z-index: 5;
         }
-        
+
+        .timeline-item:last-child::after {
+            display: none; /* Hide line for the last item */
+        }
+
+
+        /* Fade + Slide Up Animation WITHOUT breaking existing transform */
+@keyframes fadeSlideUpImage {
+    0% {
+        opacity: 0  ;
+        transform: translate(-50%, -50%) translateY(40px); /* appended */
+    }
+    100% {
+        opacity: 1;
+        transform: translate(-50%, -50%) translateY(0px); /* appended */
+    }
+}
+
+@keyframes fadeSlideUpTitle {
+    0% {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Hero title animation (safe) */
+.hero-title {
+    opacity: 0;
+    animation: fadeSlideUpTitle 1s ease-out forwards;
+    animation-delay: 0.3s;
+}
+
+/* Hero image animation (NEW safe version) */
+.profile-photo-overlay {
+    opacity: 0;
+    animation: fadeSlideUpImage 0.8s ease-out forwards;
+    animation-delay: 0.8s;
+}
+.hero-title:hover{
+    transition:  0.3s ease-in-out;
+    scale: 1.05;
+}
+
+
+.profile-photo-overlay {
+    opacity: 0;
+    animation: fadeSlideUpImage 0.8s ease-out forwards;
+    animation-delay: 0.8s;
+    transition: opacity 0.6s ease-out; /* add this */
+    will-change: opacity;
+}
+
+/* disable animation after it finishes */
+.profile-photo-overlay.animation-done {
+    animation: none !important;
+}
+
+/* fade states */
+.profile-photo-overlay.fade-out {
+    opacity: 0 !important;
+    
+}
+
+.profile-photo-overlay.fade-in {
+    opacity: 1 !important;
+}
+
+
+
+/* .profile-photo-overlay:hover{
+    transition:  0.3s ease-in-out;
+    scale: 1.05;
+} */
+
+
+
+/* Neon Green Cursor Glow */
+#cursor-glow {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    pointer-events: none;
+    background: rgba(163, 255, 0, 0.25); /* neon green */
+    box-shadow: 0 0 25px rgba(163, 255, 0, 0.6), 
+                0 0 50px rgba(163, 255, 0, 0.4);
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+    mix-blend-mode: screen;
+    transition: width 0.15s ease, height 0.15s ease, opacity 0.2s ease;
+}
+.trail-dot {
+    position: fixed;
+    width: 8px;
+    height: 8px;
+    background: rgba(163, 255, 0, 0.9);
+    border-radius: 50%;
+    pointer-events: none;
+    box-shadow: 0 0 10px rgba(163, 255, 0, 0.8);
+    transform: translate(-50%, -50%);
+    animation: fadeOut 0.2s linear forwards;
+    z-index: 9999;
+}
+
+@keyframes fadeOut {
+    0% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    100% { opacity: 0; transform: translate(-50%, -50%) scale(0.3); }
+}
+
+
+
     </style>
 </head>
-<body data-theme="dark">
+<body class="antialiased">
 
-    <!-- Navigation Bar -->
-    <nav class="fixed top-0 left-0 right-0 z-50 backdrop-blur-sm shadow-lg" style="background-color: var(--nav-bg);">
-        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-            <a href="#home" class="text-2xl font-bold transition-colors duration-300" style="color: var(--primary-accent);"><span style="color: var(--text-color);">R</span>ahul <span style="color: var(--text-color);">B</span>oddeda</a>
-            <div class="flex items-center space-x-6">
-                <a href="#about" class="transition-colors duration-300 hidden md:block" style="color: var(--text-color);">About</a>
-                <a href="#skills" class="transition-colors duration-300 hidden md:block" style="color: var(--text-color);">Skills</a>
-                <a href="#experience" class="transition-colors duration-300 hidden md:block" style="color: var(--text-color);">Experience</a>
-                <a href="#projects" class="transition-colors duration-300 hidden md:block" style="color: var(--text-color);">Projects</a>
-                <a href="#education" class="transition-colors duration-300 hidden md:block" style="color: var(--text-color);">Education</a>
-                <a href="#awards" class="transition-colors duration-300 hidden md:block" style="color: var(--text-color);">Awards</a>
-                <a href="#certifications" class="transition-colors duration-300 hidden md:block" style="color: var(--text-color);">Certifications</a>
-                <a href="#contact" class="transition-colors duration-300 hidden md:block" style="color: var(--text-color);">Contact</a>
+    <!-- Header & Navigation -->
+    <header class="sticky top-0 z-50 bg-black/80 backdrop-blur-sm shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+            <a href="https://drive.google.com/file/d/1wl0gszJO-I_IwukA3e-eFANA60yQ03By/view?pli=1" class="text-2xl font-extrabold text-accent tracking-widest uppercase">View Resume</a>
+            <nav class="hidden md:flex space-x-8 text-sm font-medium uppercase">
+                <a href="#about" class="hover:text-accent transition duration-150">About</a>
+                <a href="#career" class="hover:text-accent transition duration-150">Career Path</a>
+                <a href="#projects" class="hover:text-accent transition duration-150">Projects</a>
+                <a href="#achievements" class="hover:text-accent transition duration-150">Achievements</a>
+                <a href="#contact" class="hover:text-accent transition duration-150">Contact</a>
+            </nav>
+            <div class="md:hidden">
+                <!-- Mobile Menu Button Placeholder - Functionality omitted for single-file HTML simplicity -->
+                <button class="text-white focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                </button>
             </div>
-            <button id="mobile-menu-button" class="md:hidden transition-colors duration-300" style="color: var(--text-color);">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-            </button>
         </div>
-        <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden md:hidden" style="background-color: var(--card-bg);">
-            <a href="#about" class="block px-4 py-2 transition-colors duration-300" style="color: var(--text-color); hover:background-color: var(--nav-bg);">About</a>
-            <a href="#skills" class="block px-4 py-2 transition-colors duration-300" style="color: var(--text-color); hover:background-color: var(--nav-bg);">Skills</a>
-            <a href="#experience" class="block px-4 py-2 transition-colors duration-300" style="color: var(--text-color); hover:background-color: var(--nav-bg);">Experience</a>
-            <a href="#projects" class="block px-4 py-2 transition-colors duration-300" style="color: var(--text-color); hover:background-color: var(--nav-bg);">Projects</a>
-            <a href="#education" class="block px-4 py-2 transition-colors duration-300" style="color: var(--text-color); hover:background-color: var(--nav-bg);">Education</a>
-            <a href="#awards" class="block px-4 py-2 transition-colors duration-300" style="color: var(--text-color); hover:background-color: var(--nav-bg);">Awards</a>
-            <a href="#certifications" class="block px-4 py-2 transition-colors duration-300" style="color: var(--text-color); hover:background-color: var(--nav-bg);">Certifications</a>
-            <a href="#contact" class="block px-4 py-2 transition-colors duration-300" style="color: var(--text-color); hover:background-color: var(--nav-bg);">Contact</a>
+    </header>
+
+    <!-- Hero Section (Z-index stacking: Text is low, Portrait is high) -->
+    <section class="hero-background flex flex-col justify-center items-center relative p-4">
+        
+        <!-- Large Masked Text Overlay (Z-10) -->
+        <h1 class="hero-title relative z-10">
+            RAHUL<br>BODDEDA
+        </h1>
+
+        <!-- Profile Photo Layer (Z-20) - Placed visually on top of the text -->
+        <!-- Note: Replace the placeholder image URL with your actual professional photo for the final deployment. -->
+        <div class="profile-photo-overlay absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[280px] h-[280px] sm:w-[400px] sm:h-[400px] bg-center bg-cover z-20 duration-300 hover:scale-[1.02]"
+             style="background-image: url('profile.png'); background-color: #ffffff00; border-radius: 0%; width: 50%; height: 60%; top: 43%;">
         </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <section id="home" class="relative h-screen flex items-center justify-center text-center overflow-hidden bg-gradient-to-br from-[var(--bg-color)] to-[var(--card-bg)]">
-        <!-- Canvases for 2D particles and 3D scene -->
-        <canvas id="hero-canvas-2d" class="absolute inset-0 z-0"></canvas>
-        <canvas id="hero-canvas-3d" class="absolute inset-0 z-0"></canvas>
-
-        <div class="relative z-10 p-6 rounded-lg hero-container max-w-2xl mx-auto">
-            <h1 class="text-4xl md:text-5xl font-extrabold mb-4 leading-tight hero-text-animation">
-                <span>H</span><span>i</span><span>,</span> <span>I</span><span>'</span><span>m</span> <span class="name-char">R</span><span class="name-char">a</span><span class="name-char">h</span><span class="name-char">u</span><span class="name-char">l</span> <span class="name-char">B</span><span class="name-char">o</span><span class="name-char">d</span><span class="name-char">d</span><span class="name-char">e</span><span class="name-char">d</span><span class="name-char">a</span>
-            </h1>
-            <p class="text-xl md:text-2xl text-gray-300 mb-8 typing-effect" style="color: var(--text-color);">
-                A Computer Science Undergraduate
+        
+        <!-- Secondary Title/Descriptor Overlay (Z-30) -->
+        <div class="absolute bottom-20 left-1/2 transform -translate-x-1/2 w-full text-center z-30">
+            <p class="mt-4 text-xl sm:text-3xl font-light text-accent uppercase tracking-[0.2em] bg-black/50 px-4 py-2 rounded-lg inline-block">
+                Final Year CSE Undergraduate
             </p>
-            <div class="hero-buttons">
-                <a href="#about" class="inline-block font-bold py-3 px-8 rounded-full shadow-lg transform hover:scale-105 transition-all duration-300" style="background-color: var(--button-bg); color: var(--button-text);">
-                    Learn More About Me
-                </a>
-                <a href="https://drive.google.com/file/d/1wl0gszJO-I_IwukA3e-eFANA60yQ03By/view?pli=1" target="_blank" class="inline-block font-bold py-3 px-8 rounded-full shadow-lg transform hover:scale-105 transition-all duration-300" style="background-color: var(--secondary-accent); color: white;">
-                    Download Resume
-                </a>
-            </div>
         </div>
     </section>
 
-    <!-- About Me Section -->
-    <section id="about" class="py-20 px-4 section-fade-in">
-        <div class="container mx-auto max-w-4xl">
-            <h2 class="text-4xl font-bold text-center mb-12" style="color: var(--primary-accent);">About Me</h2>
-            <div class="scifi-card p-8 rounded-lg flex flex-col md:flex-row items-center md:items-start space-y-8 md:space-y-0 md:space-x-8">
-                <div class="md:w-1/3 flex justify-center">
-                    <img src="Rahul-Boddeda.jpg" alt="Rahul Boddeda" class="rounded-full w-48 h-48 object-cover border-4 shadow-lg" style="border-color: var(--border-color);">
-                </div>
-                <div class="md:w-2/3 text-lg leading-relaxed text-center md:text-left" style="color: var(--text-color);">
-                    <p class="mb-4">
-                        I'm a final-year Computer Science and Engineering student at NIT Andhra Pradesh, deeply rooted in AI, data science, and full-stack web development.
-                    </p>
-                    <p class="mb-4">
-                        My passion lies in leveraging technology to solve real-world problems through innovative and scalable solutions. I thrive on learning new technologies and am always eager to contribute to impactful projects.
-                    </p>
-                    <p>
-                        As a quick learner and collaborative team player, I'm committed to staying at the forefront of emerging technologies and making a tangible difference.
-                    </p>
+    <!-- About Section -->
+    <section id="about" class="py-16 md:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="section-header">About Rahul</h2>
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+            
+            <!-- Profile Summary -->
+            <div class="lg:col-span-2">
+                <p class="text-lg leading-relaxed mb-4 text-gray-300">
+                    Final-year Computer Science student specializing in AI, Machine Learning, and Data Engineering. Experienced in model development, data preprocessing, and performance tuning for real-world applications. Skilled in computer vision, deep learning, and full-stack model deployment using Python, PyTorch, and Flask.
+                </p>
+                <p class="text-xl leading-relaxed text-accent font-semibold italic">
+                    "Passionate about building scalable, intelligent systems that bridge AI and business value."
+                </p>
+            </div>
+
+            <!-- Key Stats -->
+            <div class="lg:col-span-1 bg-card rounded-xl p-6 shadow-2xl transition duration-300 hover:scale-[1.02] hover:shadow-[0_0_20px_rgba(163,255,0,0.8)]">
+                <h3 class="text-xl font-bold mb-4 border-b pb-2 border-gray-700 uppercase tracking-wider">Key Stats</h3>
+                <div class="flex flex-col space-y-4">
+                    <div class="flex justify-between items-center">
+                        <span class="text-gray-400">Education GPA:</span>
+                        <span class="text-2xl font-bold text-accent">8.41</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-gray-400">Internship F1-Score:</span>
+                        <span class="text-2xl font-bold text-accent">96.25%</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-gray-400">Core Stack:</span>
+                        <span class="text-lg font-bold text-white text-right">Python, YOLOv8, Machine Learning, Node.js, Flask, SQL</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-gray-400">University:</span>
+                        <span class="text-sm font-semibold text-white text-right">National Institute of Technology, Andhra Pradesh</span>
+                    </div>
                 </div>
             </div>
+
         </div>
     </section>
-
-    <!-- Skills Section -->
-    <section id="skills" class="py-20 px-4 section-fade-in" style="background-color: var(--card-bg);">
-        <div class="container mx-auto max-w-5xl">
-            <h2 class="text-4xl font-bold text-center mb-12" style="color: var(--primary-accent);">Skills</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Programming Languages -->
-                <div class="scifi-card p-6 rounded-lg">
-                    <h3 class="text-2xl font-semibold mb-4" style="color: var(--secondary-accent);">Programming Languages</h3>
-                    <ul class="space-y-3">
-                        <li class="flex items-center text-lg skill-item"><span class="mr-2" style="color: var(--primary-accent);">🚀</span> Python</li>
-                        <li class="flex items-center text-lg skill-item"><span class="mr-2" style="color: var(--primary-accent);">🚀</span> C</li>
-                        <li class="flex items-center text-lg skill-item"><span class="mr-2" style="color: var(--primary-accent);">🚀</span> JavaScript</li>
-                    </ul>
+    
+    <!-- Career Path Section (Timeline - "HIS WAY" style) -->
+    <section id="career" class="py-16 md:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="section-header">Career Path</h2>
+        
+        <div class="relative max-w-3xl mx-auto">
+            
+            <!-- Timeline Item: Education B.Tech -->
+            <div class="timeline-item">
+                <div class="flex justify-between items-start">
+                    <h3 class="text-xl font-bold text-accent uppercase">B.Tech in Computer Science</h3>
+                    <span class="text-sm font-semibold text-gray-400">2022 - Present</span>
                 </div>
-
-                <!-- Libraries and Frameworks -->
-                <div class="scifi-card p-6 rounded-lg">
-                    <h3 class="text-2xl font-semibold mb-4" style="color: var(--secondary-accent);">Libraries & Frameworks</h3>
-                    <ul class="space-y-3">
-                        <li class="flex items-center text-lg skill-item"><span class="mr-2" style="color: var(--primary-accent);">💡</span> ReactJs</li>
-                        <li class="flex items-center text-lg skill-item"><span class="mr-2" style="color: var(--primary-accent);">💡</span> Node JS</li>
-                        <li class="flex items-center text-lg skill-item"><span class="mr-2" style="color: var(--primary-accent);">💡</span> Flask</li>
-                        <li class="flex items-center text-lg skill-item"><span class="mr-2" style="color: var(--primary-accent);">💡</span> Scikit-Learn</li>
-                        <li class="flex items-center text-lg skill-item"><span class="mr-2" style="color: var(--primary-accent);">💡</span> Ultralytics</li>
-                        <li class="flex items-center text-lg skill-item"><span class="mr-2" style="color: var(--primary-accent);">💡</span> Regression</li>
-                        <li class="flex items-center text-lg skill-item"><span class="mr-2" style="color: var(--primary-accent);">💡</span> Power BI Desktop</li>
-                        <li class="flex items-center text-lg skill-item"><span class="mr-2" style="color: var(--primary-accent);">💡</span> Data Analysis And Display</li>
-                    </ul>
-                </div>
-
-                <!-- Database Management & Soft Skills -->
-                <div class="scifi-card p-6 rounded-lg">
-                    <h3 class="text-2xl font-semibold mb-4" style="color: var(--secondary-accent);">Database Management</h3>
-                    <ul class="space-y-3 mb-6">
-                        <li class="flex items-center text-lg skill-item"><span class="mr-2" style="color: var(--primary-accent);">💾</span> Relational Database (mySql)</li>
-                    </ul>
-                    <h3 class="text-2xl font-semibold mb-4" style="color: var(--secondary-accent);">Soft Skills</h3>
-                    <ul class="space-y-3">
-                        <li class="flex items-center text-lg skill-item"><span class="mr-2" style="color: var(--primary-accent);">🤝</span> Problem Solving</li>
-                        <li class="flex items-center text-lg skill-item"><span class="mr-2" style="color: var(--primary-accent);">🤝</span> Presentation</li>
-                        <li class="flex items-center text-lg skill-item"><span class="mr-2" style="color: var(--primary-accent);">🤝</span> Adaptability</li>
-                        <li class="flex items-center text-lg skill-item"><span class="mr-2" style="color: var(--primary-accent);">🤝</span> Leadership</li>
-                        <li class="flex items-center text-lg skill-item"><span class="mr-2" style="color: var(--primary-accent);">🤝</span> Teamwork</li>
-                        <li class="flex items-center text-lg skill-item"><span class="mr-2" style="color: var(--primary-accent);">🤝</span> Communication</li>
-                    </ul>
-                </div>
+                <p class="text-lg font-medium text-white mt-1">National Institute of Technology Andhra Pradesh</p>
+                <p class="text-sm text-gray-400">GPA: 8.41</p>
             </div>
-        </div>
-    </section>
 
-    <!-- Professional Experience Section -->
-    <section id="experience" class="py-20 px-4 section-fade-in">
-        <div class="container mx-auto max-w-4xl">
-            <h2 class="text-4xl font-bold text-center mb-12" style="color: var(--primary-accent);">Professional Experience</h2>
-            <div class="scifi-card p-8 rounded-lg">
-                <div class="mb-8">
-                    <h3 class="text-2xl font-semibold mb-4" style="color: var(--secondary-accent);">Machine Learning Intern</h3>
-                    <p class="text-xl" style="color: var(--text-color);">Pradical Solutions Pvt. Ltd. | Hyderabad, India</p>
-                    <p class="text-md" style="color: var(--text-color);">May 2024 - July 2024</p>
-                    <ul class="list-disc list-inside mt-4 space-y-2 text-lg" style="color: var(--text-color);">
-                        <li>Developed and fine-tuned YOLOv8-based deep learning models using PyTorch for accurate medical image analysis.</li>
-                        <li>Achieved 96.255% F1-Score (97.8% Precision, 94.76% Recall) in detecting missing teeth and performing instance segmentation on 2000+ dental images.</li>
-                        <li>Technologies Used: Python, PyTorch, YOLOv8, OpenCV, HTML/CSS, JavaScript, Flask.</li>
-                    </ul>
+            <!-- Timeline Item: Machine Learning Intern -->
+            <div class="timeline-item">
+                <div class="flex justify-between items-start">
+                    <h3 class="text-xl font-bold text-accent uppercase">Machine Learning Intern</h3>
+                    <span class="text-sm font-semibold text-gray-400">May - July 2024</span>
                 </div>
+                <p class="text-lg font-medium text-white mt-1">Pradical Works Pvt. Ltd.</p>
+                <ul class="list-disc space-y-1 ml-5 mt-2 text-sm text-gray-300">
+                    <li>Preprocessed and augmented 2000+ medical images for deep learning pipelines.</li>
+                    <li>Improved detection F1-Score to 96.25% using YOLOv8 for segmentation.</li>
+                    <li>Deployed models via Flask API, enabling real-time inference.</li>
+                </ul>
             </div>
+
+            <!-- Timeline Item: Volunteering (Latest) -->
+            <div class="timeline-item">
+                <div class="flex justify-between items-start">
+                    <h3 class="text-xl font-bold text-accent uppercase">Secretary, Graphic Café Club</h3>
+                    <span class="text-sm font-semibold text-gray-400">Aug 2025 - Present</span>
+                </div>
+                <p class="text-lg font-medium text-white mt-1">National Institute of Technology, Andhra Pradesh</p>
+                <ul class="list-disc space-y-1 ml-5 mt-2 text-sm text-gray-300">
+                    <li>Coordinated meetings, managed communications, and event logistics.</li>
+                    <li>Led documentation and design initiatives to boost campus engagement.</li>
+                    <li>Increased club followers from 1200 to 1340 (growth of 140).</li>
+                </ul>
+            </div>
+            
+            <!-- End of Path Marker -->
+            <div class="timeline-item pb-10">
+                <h3 class="text-xl font-bold text-white uppercase tracking-widest mt-4">Saving the World One Bug at a Time (Future plans)</h3>
+            </div>
+            
         </div>
+
     </section>
 
     <!-- Projects Section -->
-    <section id="projects" class="py-20 px-4 section-fade-in" style="background-color: var(--card-bg);">
-        <div class="container mx-auto max-w-5xl">
-            <h2 class="text-4xl font-bold text-center mb-12" style="color: var(--primary-accent);">Projects</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <!-- E-Voting Web Application -->
-                <div class="scifi-card p-6 rounded-lg">
-                    <h3 class="text-2xl font-semibold mb-2" style="color: var(--secondary-accent);">E-Voting Web Application</h3>
-                    <p class="text-md mb-4" style="color: var(--text-color);">January 2025 - May 2025</p>
-                    <p class="text-lg mb-4" style="color: var(--text-color);">Developed a secure and dynamic e-Voting web application for student elections with real-time vote validation and role-based authentication.</p>
-                    <p class="text-md" style="color: var(--text-color);">Tech Stack: Node.js, Express.js, HTML, CSS, JavaScript (Vanilla), EJS, SQL.</p>
-                </div>
-
-                <!-- AI-powered attendance system -->
-                <div class="scifi-card p-6 rounded-lg">
-                    <h3 class="text-2xl font-semibold mb-2" style="color: var(--secondary-accent);">AI-powered Attendance System</h3>
-                    <p class="text-md mb-4" style="color: var(--text-color);">January 2024 - April 2024</p>
-                    <p class="text-lg mb-4" style="color: var(--text-color);">Developed a web-based Smart Attendance System leveraging facial recognition and Node.js, integrating real-time face detection with an SQL database for secure and automated employee authentication in large organizations.</p>
-                    <p class="text-md" style="color: var(--text-color);">Tech Stack: Node.js, Express.js, face-recognition module (Python), SQL, HTML/CSS, JavaScript, OpenCV.</p>
-                </div>
+    <section id="projects" class="py-16 md:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="section-header">Featured Projects</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            
+            <!-- Project 1: CV Model Optimisation -->
+            <div class="bg-card rounded-xl p-6 shadow-xl border-t-4 border-accent transition duration-300 hover:scale-[1.02] hover:shadow-[0_0_20px_rgba(163,255,0,0.45)]">
+                <h3 class="text-xl font-bold text-white mb-2">Computer Vision Model Optimisation</h3>
+                <p class="text-sm text-accent mb-4">Final Year Project | Aug 2025 - Present</p>
+                <p class="text-gray-300 mb-4 text-sm">Optimized DenseNet-BC-100 using Pruning, Quantization, and Knowledge Distillation to minimize model size while preserving accuracy.</p>
+                <ul class="list-disc space-y-1 ml-5 text-xs text-gray-400">
+                    <li>Pruning reduced model size with only a -1.28% drop.</li>
+                    <li>Quantization achieved a minimal accuracy drop of 0.30%.</li>
+                </ul>
+                <p class="mt-4 text-xs text-gray-500">Tech Stack: PyTorch, DenseNet-BC-100, ResNet50.</p>
             </div>
+
+            <!-- Project 2: E-Voting Web Application -->
+            <div class="bg-card rounded-xl p-6 shadow-xl border-t-4 border-accent transition duration-300 hover:scale-[1.02] hover:shadow-[0_0_20px_rgba(163,255,0,0.45)]">
+                <h3 class="text-xl font-bold text-white mb-2">E-Voting Web Application</h3>
+                <p class="text-sm text-accent mb-4">Jan - May 2025</p>
+                <p class="text-gray-300 mb-4 text-sm">Secure and dynamic student election system with role-based authentication and robust SQL-backed data flow for transparency and reliability.</p>
+                <ul class="list-disc space-y-1 ml-5 text-xs text-gray-400">
+                    <li>Ensured secure authentication and controlled one-vote-per-category enforcement.</li>
+                    <li>Implemented robust SQL-backed data flow for admin insights.</li>
+                </ul>
+                <p class="mt-4 text-xs text-gray-500">Tech Stack: Node.js, Express.js, SQL, EJS.</p>
+                <a href="https://github.com/rahboddeda/E_Voting_App" class="text-accent text-sm mt-2 inline-block hover:underline font-medium">GitHub Link &rarr;</a>
+            </div>
+
+            <!-- Project 3: Smart Attendance System -->
+            <div class="bg-card rounded-xl p-6 shadow-xl border-t-4 border-accent transition duration-300 hover:scale-[1.02] hover:shadow-[0_0_20px_rgba(163,255,0,0.45)]">
+                <h3 class="text-xl font-bold text-white mb-2">Smart Attendance System</h3>
+                <p class="text-sm text-accent mb-4">Jan - Apr 2024</p>
+                <p class="text-gray-300 mb-4 text-sm">Automated attendance system using facial recognition, integrating Node.js with a Python-based face recognition module.</p>
+                <ul class="list-disc space-y-1 ml-5 text-xs text-gray-400">
+                    <li>Used Python/OpenCV for accurate, real-time identity verification.</li>
+                    <li>Designed end-to-end workflow for capturing, validating, and storing data in an SQL database.</li>
+                </ul>
+                <p class="mt-4 text-xs text-gray-500">Tech Stack: Node.js, Express.js, Python, OpenCV, SQL.</p>
+                <a href="https://github.com/rahboddeda/Facial-recognition-attendance-system" class="text-accent text-sm mt-2 inline-block hover:underline font-medium">GitHub Link &rarr;</a>
+            </div>
+            
         </div>
     </section>
 
-    <!-- Education Section -->
-    <section id="education" class="py-20 px-4 section-fade-in">
-        <div class="container mx-auto max-w-4xl">
-            <h2 class="text-4xl font-bold text-center mb-12" style="color: var(--primary-accent);">Education</h2>
-            <div class="scifi-card p-8 rounded-lg">
-                <h3 class="text-2xl font-semibold mb-4" style="color: var(--secondary-accent);">B.Tech in Computer Science and Engineering</h3>
-                <p class="text-xl" style="color: var(--text-color);">National Institute of Technology Andhra Pradesh</p>
-                <p class="text-md" style="color: var(--text-color);">November 2022 - Present | Tadepalligudem, India</p>
-                <p class="text-lg mt-4" style="color: var(--text-color);">GPA: 8.41</p>
-                <p class="text-lg mt-2" style="color: var(--text-color);">Coursework: Operating Systems, Data Structures and Algorithms, Web Development, Database Management Systems, Artificial Intelligence, Machine Learning, Natural Language Processing, Software Engineering.</p>
+    <!-- Awards & Certifications Section -->
+    <section id="achievements" class="py-16 md:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="section-header">Awards & Certifications</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            
+            <!-- Awards -->
+            <div class="bg-card p-6 rounded-xl shadow-lg border-l-4 border-gray-700 transition duration-300 hover:scale-[1.02] hover:shadow-[0_0_20px_rgba(163,255,0,0.45)]" >
+                <h3 class="text-2xl font-bold text-accent mb-4 border-b border-gray-700 pb-2 uppercase tracking-wide">Awards</h3>
+                <ul class="space-y-3">
+                    <li class="flex justify-between items-center text-gray-300">
+                        <span class="font-medium">Runner-up College Hackathon CSEA NIT ANP</span>
+                        <span class="text-sm text-white bg-gray-700 px-2 py-0.5 rounded-full">2025</span>
+                    </li>
+                    <li class="flex justify-between items-center text-gray-300">
+                        <span class="font-medium">Best Team Member Vulcanzy 2K24 Design & Media Team</span>
+                        <span class="text-sm text-white bg-gray-700 px-2 py-0.5 rounded-full">Jan 2024</span>
+                    </li>
+                </ul>
             </div>
-        </div>
-    </section>
 
-    <!-- Awards Section -->
-    <section id="awards" class="py-20 px-4 section-fade-in" style="background-color: var(--card-bg);">
-        <div class="container mx-auto max-w-4xl">
-            <h2 class="text-4xl font-bold text-center mb-12" style="color: var(--primary-accent);">Awards</h2>
-            <div class="scifi-card p-8 rounded-lg">
-                <div class="mb-6">
-                    <h3 class="text-2xl font-semibold mb-4" style="color: var(--secondary-accent);">Best Team Member, Vulcanzy 2K24</h3>
-                    <p class="text-md" style="color: var(--text-color);">January 2024</p>
-                    <p class="text-lg mt-2" style="color: var(--text-color);">Joint Secretary of the Design & Media team for Vulcanzy 2K24; contributed to event branding and was awarded Best Team Member for creative excellence.</p>
-                </div>
-                <div>
-                    <h3 class="text-2xl font-semibold mb-4" style="color: var(--secondary-accent);">Runner up - Women's day Hackathon, CSEA-NITANP</h3>
-                    <p class="text-md" style="color: var(--text-color);">January 2025</p>
-                    <p class="text-lg mt-2" style="color: var(--text-color);">Built an AI-powered solution for real-world women's issues at the Women's Day Hackathon; won 1st place for innovation and practical impact.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Certifications Section -->
-    <section id="certifications" class="py-20 px-4 section-fade-in">
-        <div class="container mx-auto max-w-4xl">
-            <h2 class="text-4xl font-bold text-center mb-12" style="color: var(--primary-accent);">Certifications</h2>
-            <div class="scifi-card p-8 rounded-lg">
-                <ul class="list-disc list-inside space-y-4 text-lg" style="color: var(--text-color);">
-                    <li>Accenture UK developer and technology virtual experience programme, Forage <span style="color: var(--text-color);">(Dec '24)</span></li>
-                    <li>Accenture North America - Data Analytics and Visualization Job Simulation, Forage <span style="color: var(--text-color);">(Jan '25)</span></li>
-                    <li>HP Life - AI for Beginners, HP Life <span style="color: var(--text-color);">(Dec '24)</span></li>
-                    <li>Cloud Computing, NPTEL <span style="color: var(--text-color);">(Nov '24)</span></li>
+            <!-- Certifications -->
+            <div class="bg-card p-6 rounded-xl shadow-lg border-l-4 border-gray-700 transition duration-300 hover:scale-[1.02] hover:shadow-[0_0_20px_rgba(163,255,0,0.45)]">
+                <h3 class="text-2xl font-bold text-accent mb-4 border-b border-gray-700 pb-2 uppercase tracking-wide">Certifications</h3>
+                <ul class="space-y-3">
+                    <li class="flex justify-between items-center text-gray-300">
+                        <span class="font-medium">Accenture UK Developer & Tech Virtual Experience</span>
+                        <span class="text-sm text-white bg-gray-700 px-2 py-0.5 rounded-full">Dec 2024</span>
+                    </li>
+                    <li class="flex justify-between items-center text-gray-300">
+                        <span class="font-medium">HP Life AI for Beginners</span>
+                        <span class="text-sm text-white bg-gray-700 px-2 py-0.5 rounded-full">Dec 2024</span>
+                    </li>
+                    <li class="flex justify-between items-center text-gray-300">
+                        <span class="font-medium">Cloud Computing - NPTEL</span>
+                        <span class="text-sm text-white bg-gray-700 px-2 py-0.5 rounded-full">Nov 2024</span>
+                    </li>
                 </ul>
             </div>
         </div>
     </section>
 
-    <!-- Volunteering Section -->
-    <section id="volunteering" class="py-20 px-4 section-fade-in" style="background-color: var(--card-bg);">
-        <div class="container mx-auto max-w-4xl">
-            <h2 class="text-4xl font-bold text-center mb-12" style="color: var(--primary-accent);">Volunteering</h2>
-            <div class="scifi-card p-8 rounded-lg">
-                <h3 class="text-2xl font-semibold mb-4" style="color: var(--secondary-accent);">Secretary - Design Team, Graphic Cafe</h3>
-                <p class="text-xl" style="color: var(--text-color);">Tadepalligudem</p>
-                <p class="text-md" style="color: var(--text-color);">July 2024 - July 2025</p>
-                <p class="text-lg mt-4" style="color: var(--text-color);">Led the Design Team at Graphic Cafe as Head, overseeing creative direction, coordinating design projects, and ensuring high-quality visual content across branding and digital media initiatives.</p>
+    <!-- Contact & Footer Section -->
+    <section id="contact" class="py-16 bg-black/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="section-header mx-auto w-fit">Get In Touch</h2>
+            <div class="flex flex-col space-y-4 md:flex-row md:space-y-0 md:space-x-8 justify-center text-xl font-medium">
+                <a href="mailto:rahulboddeda@gmail.com" class="flex items-center space-x-2 text-gray-300 hover:text-accent transition duration-150">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path></svg>
+                    <span>rahulboddeda@gmail.com</span>
+                </a>
+                <a href="tel:+916303793820" class="flex items-center space-x-2 text-gray-300 hover:text-accent transition duration-150">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path></svg>
+                    <span>+91-6303793820</span>
+                </a>
             </div>
-            <br>
-            <br>
-            <div class="scifi-card p-8 rounded-lg">
-                <h3 class="text-2xl font-semibold mb-4" style="color: var(--secondary-accent);">Secretary -  Graphic Cafe</h3>
-                <p class="text-xl" style="color: var(--text-color);">Tadepalligudem</p>
-                <p class="text-md" style="color: var(--text-color);">August 2025 - Present</p>
-                <p class="text-lg mt-4" style="color: var(--text-color);">As Secretary of Graphic Café, I coordinated meetings, maintained records, and managed communications between members, faculty, and external collaborators.I supported event planning, logistics, and documentation to ensure smooth club operations.I contributed creative ideas and facilitated activities that promoted design and cultural engagement.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="py-20 px-4 section-fade-in">
-        <div class="container mx-auto max-w-3xl text-center">
-            <h2 class="text-4xl font-bold text-center mb-12" style="color: var(--primary-accent);">Get in Touch</h2>
-            <div class="scifi-card p-8 rounded-lg">
-                <p class="text-xl mb-6" style="color: var(--text-color);">I'm always open to new opportunities and collaborations. Feel free to reach out!</p>
-                <div class="flex flex-col space-y-4 items-center">
-                    <a href="mailto:rahulboddeda@gmail.com" class="flex items-center text-lg transition-colors duration-300 social-icon" style="color: var(--primary-accent);">
-                        <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8m-18 4v7a2 2 0 002 2h14a2 2 0 002-2v-7m-18 0h18"></path></svg>
-                        rahulboddeda@gmail.com
-                    </a>
-                    <a href="tel:+916303793820" class="flex items-center text-lg transition-colors duration-300 social-icon" style="color: var(--primary-accent);">
-                        <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
-                        +91 6303793820
-                    </a>
-                    <div class="flex space-x-6 mt-4">
-                        <a href="https://github.com/rahboddeda" target="_blank" class="transition-colors duration-300 social-icon" style="color: var(--primary-accent);">
-                            <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.47.087.68-.233.68-.522 0-.257-.009-.957-.014-1.879-2.782.603-3.37-1.34-3.37-1.34-.454-1.156-1.11-1.464-1.11-1.464-.908-.62.069-.608.069-.608 1.004.07 1.532 1.03 1.532 1.03.89 1.529 2.342 1.087 2.91.829.091-.645.351-1.087.636-1.338-2.22-.253-4.555-1.11-4.555-4.93 0-1.09.39-1.984 1.029-2.682-.103-.253-.446-1.272.098-2.65 0 0 .84-.269 2.75 1.025.798-.222 1.644-.333 2.488-.336.844.003 1.69.114 2.488.336 1.91-1.294 2.747-1.025 2.747-1.025.546 1.378.202 2.397.099 2.65.64.698 1.028 1.592 1.028 2.682 0 3.829-2.339 4.673-4.566 4.922.359.307.678.915.678 1.846 0 1.338-.012 2.419-.012 2.747 0 .292.208.615.688.522C20.14 20.2 23 16.445 23 12.017 23 6.484 18.522 2 13 2h-1Z" clip-rule="evenodd"></path></svg>
-                        </a>
-                        <a href="https://www.linkedin.com/in/rahul-boddeda-903742262/" target="_blank" class="transition-colors duration-300 social-icon" style="color: var(--primary-accent);">
-                            <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M0 .016v23.968h24V.016H0zm6.095 20.218H3.342V9.186h2.753v11.048zM4.718 7.91C3.765 7.91 3 7.152 3 6.198S3.765 4.485 4.718 4.485c.953 0 1.718.758 1.718 1.712s-.765 1.713-1.718 1.713zm15.282 12.323h-2.753v-5.46c0-1.304-.465-2.193-1.63-2.193-1.304 0-2.07.889-2.07 2.193v5.46H11.08V9.186h2.753v1.189c.365-.776 1.03-1.42 2.32-1.42 2.48 0 4.347 1.63 4.347 5.15v5.996z"></path></svg>
-                        </a>
-                        <a href="https://portfolio-two-pi-59.vercel.app/" target="_blank" class="transition-colors duration-300 social-icon" style="color: var(--primary-accent);">
-                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 10a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1v-4z"></path></svg>
-                        </a>
-                    </div>
-                </div>
+            
+            <div class="mt-8 flex justify-center space-x-6">
+                <!-- LinkedIn Link -->
+                <a href="https://www.linkedin.com/in/rahul-boddeda-903742262" class="text-gray-400 hover:text-accent transition duration-150 transition duration-300 hover:scale-[1.02] hover:shadow-[0_0_20px_rgba(10,102,194,1)]">
+                    <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.529-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                </a>
+                <!-- GitHub Link -->
+                <a href="https://github.com/rahboddeda" class="text-gray-400 hover:text-accent transition duration-150 transition duration-300 hover:scale-[1.02] hover:shadow-[0_0_20px_rgba(163,255,0,1)]">
+                    <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12 0C5.373 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.6.11.82-.26.82-.577 0-.285-.01-1.04-.015-2.04-3.34.725-4.04-1.61-4.04-1.61-.546-1.387-1.332-1.755-1.332-1.755-1.09-.745.08-.73.08-.73 1.205.085 1.838 1.238 1.838 1.238 1.07 1.833 2.809 1.304 3.49.997.108-.775.419-1.305.762-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.125-.3-.535-1.52.12-3.18 0 0 1-.32 3.3 1.23.955-.265 1.98-.398 3.004-.398 1.023 0 2.05.133 3.004.398 2.3-1.55 3.3-1.23 3.3-1.23.655 1.66.245 2.88.12 3.18.77.84 1.235 1.91 1.235 3.22 0 4.61-2.805 5.62-5.475 5.92.43.37.82 1.1.82 2.22 0 1.605-.015 2.89-.015 3.28 0 .32.22.69.82.57C20.565 21.8 24 17.302 24 12c0-6.627-5.373-12-12-12z" clip-rule="evenodd"/></svg>
+                </a>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="py-8 text-center text-sm" style="background-color: var(--footer-bg); color: var(--text-color);">
-        <p>&copy; 2025 Rahul Boddeda. All rights reserved.</p>
-        
+    <footer class="bg-black/80 py-6">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center text-xs text-gray-500">
+            <p>&copy; 2025@Rahul Boddeda.</p>
+            <p class="mt-2 md:mt-0">Feel Free to contact me anytime.</p>
+        </div>
     </footer>
+<!-- <div id="cursor-glow"></div> -->
 
-    <!-- Scroll to Top Button -->
-    <button id="scroll-to-top" aria-label="Scroll to top">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path></svg>
-    </button>
-    
-    <!-- Floating Dark/Light Mode Toggle -->
-    <div id="floating-toggle-container">
-        <button id="theme-toggle" aria-label="Toggle dark/light theme">
-            <svg id="sun-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
-            <svg id="moon-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
-        </button>
-    </div>
-
-    <script>
-        const body = document.body;
-        
-        // --- Theme Switching Logic ---
-        function handleThemeSwitch() {
-            const currentTheme = body.getAttribute('data-theme');
-        }
-
-        // Event listeners
-        const themeToggleBtn = document.getElementById('theme-toggle');
-        themeToggleBtn.addEventListener('click', () => {
-            const currentTheme = body.getAttribute('data-theme');
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            body.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
-            handleThemeSwitch();
-        });
-
-        // Initial setup on window load
-        window.onload = function() {
-            const savedTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-            body.setAttribute('data-theme', savedTheme);
-            handleThemeSwitch();
-
-            // Mobile menu toggle
-            const mobileMenuButton = document.getElementById('mobile-menu-button');
-            const mobileMenu = document.getElementById('mobile-menu');
-            mobileMenuButton.addEventListener('click', () => { mobileMenu.classList.toggle('hidden'); });
-            mobileMenu.querySelectorAll('a').forEach(link => { link.addEventListener('click', () => { mobileMenu.classList.add('hidden'); }); });
-
-            // Section fade-in on scroll
-            const sections = document.querySelectorAll('.section-fade-in');
-            const observer = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('is-visible'); observer.unobserve(entry.target); } });
-            }, { root: null, rootMargin: '0px', threshold: 0.1 });
-            sections.forEach(section => observer.observe(section));
-            
-            // Typing effect for hero section
-            const typingTextElement = document.querySelector('.typing-effect');
-            const phrases = ["A Computer Science Undergraduate", "An AI Enthusiast", "A Full-Stack Developer"];
-            let phraseIndex = 0; let charIndex = 0; let isDeleting = false;
-            function typeWriter() {
-                const currentPhrase = phrases[phraseIndex];
-                if (isDeleting) { typingTextElement.textContent = currentPhrase.substring(0, charIndex - 1); charIndex--; }
-                else { typingTextElement.textContent = currentPhrase.substring(0, charIndex + 1); charIndex++; }
-                let typingSpeed = isDeleting ? 50 : 100;
-                if (!isDeleting && charIndex === currentPhrase.length) { typingSpeed = 1500; isDeleting = true; }
-                else if (isDeleting && charIndex === 0) { isDeleting = false; phraseIndex = (phraseIndex + 1) % phrases.length; typingSpeed = 500; }
-                setTimeout(typeWriter, typingSpeed);
-            }
-            setTimeout(() => { typeWriter(); }, 1000);
-
-            // Hero text animation
-            const heroTextSpans = document.querySelectorAll('.hero-text-animation span');
-            heroTextSpans.forEach((span, index) => { span.style.animationDelay = `${index * 0.05}s`; });
-
-            // Scroll to top button
-            const scrollToTopButton = document.getElementById('scroll-to-top');
-            window.addEventListener('scroll', () => { if (window.scrollY > 300) { scrollToTopButton.classList.add('show'); } else { scrollToTopButton.classList.remove('show'); }});
-            scrollToTopButton.addEventListener('click', () => { window.scrollTo({ top: 0, behavior: 'smooth' }); });
-        }
-    </script>
 </body>
+
+<script>
+document.addEventListener("mousemove", (e) => {
+    const dot = document.createElement("div");
+    dot.classList.add("trail-dot");
+    dot.style.left = e.clientX + "px";
+    dot.style.top = e.clientY + "px";
+    
+    document.body.appendChild(dot);
+
+    setTimeout(() => {
+        dot.remove();
+    }, 100); // remove after fade-out
+});
+
+const photo = document.querySelector(".profile-photo-overlay");
+let lastScroll = 0;
+
+// After animation finishes → allow transitions to take over
+photo.addEventListener("animationend", () => {
+    photo.classList.add("animation-done", "fade-in");
+});
+
+window.addEventListener("scroll", () => {
+    const currentScroll = window.pageYOffset;
+
+    if (!photo.classList.contains("animation-done")) return;
+
+    if (currentScroll > lastScroll) {
+        // scroll down
+        photo.classList.remove("fade-in");
+        photo.classList.add("fade-out");
+    } else {
+        // scroll up
+        photo.classList.remove("fade-out");
+        photo.classList.add("fade-in");
+    }
+
+    lastScroll = currentScroll <= 0 ? 0 : currentScroll;
+});
+</script>
+
+
+
 </html>
-
-
-
