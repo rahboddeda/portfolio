@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rahul Boddeda | Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <style>
+        /* Custom styles to emulate the high-contrast, professional F1 look */
+        :root {
+            --accent-color: #A3FF00; /* Neon Green/Yellow for F1 vibe */
+            --dark-background: #080808; /* Even darker, near black */
+            --light-text: #F9FAFB;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--dark-background);
+            color: var(--light-text);
+        }
+
+        .text-accent {
+            color: var(--accent-color);
+        }
+
+        .border-accent {
+            border-color: var(--accent-color);
+        }
+
+        .bg-card {
+            background-color: #1a1a1a; /* Darker card background */
+        }
+
+        .section-header {
+            font-size: 2.5rem;
+            font-weight: 900; 
+            text-transform: uppercase;
+            letter-spacing: 0.2em; /* Wider tracking for dramatic effect */
+            margin-bottom: 2.5rem;
+            border-bottom: 3px solid var(--accent-color);
+            padding-bottom: 0.5rem;
+        }
+
+        /* Hero Section Styling: Now focusing on Z-index stacking */
+        .hero-background {
+            background-color: var(--dark-background); /* Explicitly set dark background */
+            height: 100vh; /* Full viewport height on load */
+        }
+        
+        /* New Hero Text Styling for the dramatic masked effect */
+        .hero-title {
+            font-size: 7rem; /* Large font size for impact */
+            font-weight: 900;
+            line-height: 0.8;
+            letter-spacing: -0.05em;
+            text-transform: uppercase;
+            /* Text is semi-transparent, sitting behind the main portrait */
+            color: transparent;
+            /* Using a subtle background image to show through the transparent text */
+            background-image: url('https://placehold.co/1920x1080/111/AAA?text=SUBTLE+TEXTURE'); 
+            background-clip: text;
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: rgba(255, 255, 255, 0.15); /* Slightly less opaque white */
+            filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.5));
+            transition: all 0.5s;
+        }
+
+        /* Mobile Adjustments */
+        @media (min-width: 640px) {
+            .hero-title {
+                font-size: 10rem;
+            }
+        }
+        @media (min-width: 1024px) {
+            .hero-title {
+                font-size: 15rem; /* Massive size on desktop */
+            }
+        }
+
+        @media (max-width: 640px) {
+            .hero-background {
+                height: 70vh;
+            }
+            .section-header {
+                font-size: 1.75rem;
+                letter-spacing: 0.1em;
+            }
+        }
+        /* Timeline styling remains the same */
+        .timeline-item {
+            position: relative;
+            padding-left: 2rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 5px;
+            width: 12px;
+            height: 12px;
+            background-color: var(--accent-color);
+            border-radius: 50%;
+            border: 3px solid var(--dark-background);
+            z-index: 10;
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            left: 5px;
+            top: 15px;
+            bottom: -2.5rem;
+            width: 2px;
+            background-color: #374151; /* Subtle gray line */
+            z-index: 5;
+        }
+
+        .timeline-item:last-child::after {
+            display: none; /* Hide line for the last item */
+        }
+
+
+        /* Fade + Slide Up Animation WITHOUT breaking existing transform */
+@keyframes fadeSlideUpImage {
+    0% {
+        opacity: 0  ;
+        transform: translate(-50%, -50%) translateY(40px); /* appended */
+    }
+    100% {
+        opacity: 1;
+        transform: translate(-50%, -50%) translateY(0px); /* appended */
+    }
+}
+
+@keyframes fadeSlideUpTitle {
+    0% {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Hero title animation (safe) */
+.hero-title {
+    opacity: 0;
+    animation: fadeSlideUpTitle 1s ease-out forwards;
+    animation-delay: 0.3s;
+}
+
+/* Hero image animation (NEW safe version) */
+.profile-photo-overlay {
+    opacity: 0;
+    animation: fadeSlideUpImage 0.8s ease-out forwards;
+    animation-delay: 0.8s;
+}
+.hero-title:hover{
+    transition:  0.3s ease-in-out;
+    scale: 1.05;
+}
+/* .profile-photo-overlay:hover{
+    transition:  0.3s ease-in-out;
+    scale: 1.05;
+} */
+
+
+
+
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Header & Navigation -->
+    <header class="sticky top-0 z-50 bg-black/80 backdrop-blur-sm shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+            <a href="https://drive.google.com/file/d/1wl0gszJO-I_IwukA3e-eFANA60yQ03By/view?pli=1" class="text-2xl font-extrabold text-accent tracking-widest uppercase">View Resume</a>
+            <nav class="hidden md:flex space-x-8 text-sm font-medium uppercase">
+                <a href="#about" class="hover:text-accent transition duration-150">About</a>
+                <a href="#career" class="hover:text-accent transition duration-150">Career Path</a>
+                <a href="#projects" class="hover:text-accent transition duration-150">Projects</a>
+                <a href="#achievements" class="hover:text-accent transition duration-150">Achievements</a>
+                <a href="#contact" class="hover:text-accent transition duration-150">Contact</a>
+            </nav>
+            <div class="md:hidden">
+                <!-- Mobile Menu Button Placeholder - Functionality omitted for single-file HTML simplicity -->
+                <button class="text-white focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section (Z-index stacking: Text is low, Portrait is high) -->
+    <section class="hero-background flex flex-col justify-center items-center relative p-4">
+        
+        <!-- Large Masked Text Overlay (Z-10) -->
+        <h1 class="hero-title relative z-10">
+            RAHUL<br>BODDEDA
+        </h1>
+
+        <!-- Profile Photo Layer (Z-20) - Placed visually on top of the text -->
+        <!-- Note: Replace the placeholder image URL with your actual professional photo for the final deployment. -->
+        <div class="profile-photo-overlay absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[280px] h-[280px] sm:w-[400px] sm:h-[400px] bg-center bg-cover z-20 duration-300 hover:scale-[1.02]"
+             style="background-image: url('profile.png'); background-color: #ffffff00; border-radius: 0%; width: 50%; height: 60%; top: 45%;">
+        </div>
+        
+        <!-- Secondary Title/Descriptor Overlay (Z-30) -->
+        <div class="absolute bottom-20 left-1/2 transform -translate-x-1/2 w-full text-center z-30">
+            <p class="mt-4 text-xl sm:text-3xl font-light text-accent uppercase tracking-[0.2em] bg-black/50 px-4 py-2 rounded-lg inline-block">
+                Final Year CSE Undergraduate
+            </p>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-16 md:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="section-header">About Rahul</h2>
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+            
+            <!-- Profile Summary -->
+            <div class="lg:col-span-2">
+                <p class="text-lg leading-relaxed mb-4 text-gray-300">
+                    Final-year Computer Science student specializing in AI, Machine Learning, and Data Engineering. Experienced in model development, data preprocessing, and performance tuning for real-world applications. Skilled in computer vision, deep learning, and full-stack model deployment using Python, PyTorch, and Flask.
+                </p>
+                <p class="text-xl leading-relaxed text-accent font-semibold italic">
+                    "Passionate about building scalable, intelligent systems that bridge AI and business value."
+                </p>
+            </div>
+
+            <!-- Key Stats -->
+            <div class="lg:col-span-1 bg-card rounded-xl p-6 shadow-2xl transition duration-300 hover:scale-[1.02] hover:shadow-[0_0_20px_rgba(163,255,0,0.8)]">
+                <h3 class="text-xl font-bold mb-4 border-b pb-2 border-gray-700 uppercase tracking-wider">Key Stats</h3>
+                <div class="flex flex-col space-y-4">
+                    <div class="flex justify-between items-center">
+                        <span class="text-gray-400">Education GPA:</span>
+                        <span class="text-2xl font-bold text-accent">8.41</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-gray-400">Internship F1-Score:</span>
+                        <span class="text-2xl font-bold text-accent">96.25%</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-gray-400">Core Stack:</span>
+                        <span class="text-lg font-bold text-white text-right">Python, YOLOv8, Machine Learning, Node.js, Flask, SQL</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-gray-400">University:</span>
+                        <span class="text-sm font-semibold text-white text-right">National Institute of Technology, Andhra Pradesh</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+    
+    <!-- Career Path Section (Timeline - "HIS WAY" style) -->
+    <section id="career" class="py-16 md:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="section-header">Career Path</h2>
+        
+        <div class="relative max-w-3xl mx-auto">
+            
+            <!-- Timeline Item: Education B.Tech -->
+            <div class="timeline-item">
+                <div class="flex justify-between items-start">
+                    <h3 class="text-xl font-bold text-accent uppercase">B.Tech in Computer Science</h3>
+                    <span class="text-sm font-semibold text-gray-400">2022 - Present</span>
+                </div>
+                <p class="text-lg font-medium text-white mt-1">National Institute of Technology Andhra Pradesh</p>
+                <p class="text-sm text-gray-400">GPA: 8.41</p>
+            </div>
+
+            <!-- Timeline Item: Machine Learning Intern -->
+            <div class="timeline-item">
+                <div class="flex justify-between items-start">
+                    <h3 class="text-xl font-bold text-accent uppercase">Machine Learning Intern</h3>
+                    <span class="text-sm font-semibold text-gray-400">May - July 2024</span>
+                </div>
+                <p class="text-lg font-medium text-white mt-1">Pradical Works Pvt. Ltd.</p>
+                <ul class="list-disc space-y-1 ml-5 mt-2 text-sm text-gray-300">
+                    <li>Preprocessed and augmented 2000+ medical images for deep learning pipelines.</li>
+                    <li>Improved detection F1-Score to 96.25% using YOLOv8 for segmentation.</li>
+                    <li>Deployed models via Flask API, enabling real-time inference.</li>
+                </ul>
+            </div>
+
+            <!-- Timeline Item: Volunteering (Latest) -->
+            <div class="timeline-item">
+                <div class="flex justify-between items-start">
+                    <h3 class="text-xl font-bold text-accent uppercase">Secretary, Graphic Café Club</h3>
+                    <span class="text-sm font-semibold text-gray-400">Aug 2025 - Present</span>
+                </div>
+                <p class="text-lg font-medium text-white mt-1">National Institute of Technology, Andhra Pradesh</p>
+                <ul class="list-disc space-y-1 ml-5 mt-2 text-sm text-gray-300">
+                    <li>Coordinated meetings, managed communications, and event logistics.</li>
+                    <li>Led documentation and design initiatives to boost campus engagement.</li>
+                    <li>Increased club followers from 1200 to 1340 (growth of 140).</li>
+                </ul>
+            </div>
+            
+            <!-- End of Path Marker -->
+            <div class="timeline-item pb-10">
+                <h3 class="text-xl font-bold text-white uppercase tracking-widest mt-4">Saving the World One Bug at a Time (Future plans)</h3>
+            </div>
+            
+        </div>
+
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-16 md:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="section-header">Featured Projects</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            
+            <!-- Project 1: CV Model Optimisation -->
+            <div class="bg-card rounded-xl p-6 shadow-xl border-t-4 border-accent transition duration-300 hover:scale-[1.02] hover:shadow-[0_0_20px_rgba(163,255,0,0.45)]">
+                <h3 class="text-xl font-bold text-white mb-2">Computer Vision Model Optimisation</h3>
+                <p class="text-sm text-accent mb-4">Final Year Project | Aug 2025 - Present</p>
+                <p class="text-gray-300 mb-4 text-sm">Optimized DenseNet-BC-100 using Pruning, Quantization, and Knowledge Distillation to minimize model size while preserving accuracy.</p>
+                <ul class="list-disc space-y-1 ml-5 text-xs text-gray-400">
+                    <li>Pruning reduced model size with only a -1.28% drop.</li>
+                    <li>Quantization achieved a minimal accuracy drop of 0.30%.</li>
+                </ul>
+                <p class="mt-4 text-xs text-gray-500">Tech Stack: PyTorch, DenseNet-BC-100, ResNet50.</p>
+            </div>
+
+            <!-- Project 2: E-Voting Web Application -->
+            <div class="bg-card rounded-xl p-6 shadow-xl border-t-4 border-accent transition duration-300 hover:scale-[1.02] hover:shadow-[0_0_20px_rgba(163,255,0,0.45)]">
+                <h3 class="text-xl font-bold text-white mb-2">E-Voting Web Application</h3>
+                <p class="text-sm text-accent mb-4">Jan - May 2025</p>
+                <p class="text-gray-300 mb-4 text-sm">Secure and dynamic student election system with role-based authentication and robust SQL-backed data flow for transparency and reliability.</p>
+                <ul class="list-disc space-y-1 ml-5 text-xs text-gray-400">
+                    <li>Ensured secure authentication and controlled one-vote-per-category enforcement.</li>
+                    <li>Implemented robust SQL-backed data flow for admin insights.</li>
+                </ul>
+                <p class="mt-4 text-xs text-gray-500">Tech Stack: Node.js, Express.js, SQL, EJS.</p>
+                <a href="https://github.com/rahboddeda/E_Voting_App" class="text-accent text-sm mt-2 inline-block hover:underline font-medium">GitHub Link &rarr;</a>
+            </div>
+
+            <!-- Project 3: Smart Attendance System -->
+            <div class="bg-card rounded-xl p-6 shadow-xl border-t-4 border-accent transition duration-300 hover:scale-[1.02] hover:shadow-[0_0_20px_rgba(163,255,0,0.45)]">
+                <h3 class="text-xl font-bold text-white mb-2">Smart Attendance System</h3>
+                <p class="text-sm text-accent mb-4">Jan - Apr 2024</p>
+                <p class="text-gray-300 mb-4 text-sm">Automated attendance system using facial recognition, integrating Node.js with a Python-based face recognition module.</p>
+                <ul class="list-disc space-y-1 ml-5 text-xs text-gray-400">
+                    <li>Used Python/OpenCV for accurate, real-time identity verification.</li>
+                    <li>Designed end-to-end workflow for capturing, validating, and storing data in an SQL database.</li>
+                </ul>
+                <p class="mt-4 text-xs text-gray-500">Tech Stack: Node.js, Express.js, Python, OpenCV, SQL.</p>
+                <a href="https://github.com/rahboddeda/Facial-recognition-attendance-system" class="text-accent text-sm mt-2 inline-block hover:underline font-medium">GitHub Link &rarr;</a>
+            </div>
+            
+        </div>
+    </section>
+
+    <!-- Awards & Certifications Section -->
+    <section id="achievements" class="py-16 md:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="section-header">Awards & Certifications</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            
+            <!-- Awards -->
+            <div class="bg-card p-6 rounded-xl shadow-lg border-l-4 border-gray-700 transition duration-300 hover:scale-[1.02] hover:shadow-[0_0_20px_rgba(163,255,0,0.45)]" >
+                <h3 class="text-2xl font-bold text-accent mb-4 border-b border-gray-700 pb-2 uppercase tracking-wide">Awards</h3>
+                <ul class="space-y-3">
+                    <li class="flex justify-between items-center text-gray-300">
+                        <span class="font-medium">Runner-up College Hackathon CSEA NIT ANP</span>
+                        <span class="text-sm text-white bg-gray-700 px-2 py-0.5 rounded-full">2025</span>
+                    </li>
+                    <li class="flex justify-between items-center text-gray-300">
+                        <span class="font-medium">Best Team Member Vulcanzy 2K24 Design & Media Team</span>
+                        <span class="text-sm text-white bg-gray-700 px-2 py-0.5 rounded-full">Jan 2024</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Certifications -->
+            <div class="bg-card p-6 rounded-xl shadow-lg border-l-4 border-gray-700 transition duration-300 hover:scale-[1.02] hover:shadow-[0_0_20px_rgba(163,255,0,0.45)]">
+                <h3 class="text-2xl font-bold text-accent mb-4 border-b border-gray-700 pb-2 uppercase tracking-wide">Certifications</h3>
+                <ul class="space-y-3">
+                    <li class="flex justify-between items-center text-gray-300">
+                        <span class="font-medium">Accenture UK Developer & Tech Virtual Experience</span>
+                        <span class="text-sm text-white bg-gray-700 px-2 py-0.5 rounded-full">Dec 2024</span>
+                    </li>
+                    <li class="flex justify-between items-center text-gray-300">
+                        <span class="font-medium">HP Life AI for Beginners</span>
+                        <span class="text-sm text-white bg-gray-700 px-2 py-0.5 rounded-full">Dec 2024</span>
+                    </li>
+                    <li class="flex justify-between items-center text-gray-300">
+                        <span class="font-medium">Cloud Computing - NPTEL</span>
+                        <span class="text-sm text-white bg-gray-700 px-2 py-0.5 rounded-full">Nov 2024</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact & Footer Section -->
+    <section id="contact" class="py-16 bg-black/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="section-header mx-auto w-fit">Get In Touch</h2>
+            <div class="flex flex-col space-y-4 md:flex-row md:space-y-0 md:space-x-8 justify-center text-xl font-medium">
+                <a href="mailto:rahulboddeda@gmail.com" class="flex items-center space-x-2 text-gray-300 hover:text-accent transition duration-150">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path></svg>
+                    <span>rahulboddeda@gmail.com</span>
+                </a>
+                <a href="tel:+916303793820" class="flex items-center space-x-2 text-gray-300 hover:text-accent transition duration-150">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path></svg>
+                    <span>+91-6303793820</span>
+                </a>
+            </div>
+            
+            <div class="mt-8 flex justify-center space-x-6">
+                <!-- LinkedIn Link -->
+                <a href="https://www.linkedin.com/in/rahul-boddeda-903742262" class="text-gray-400 hover:text-accent transition duration-150 transition duration-300 hover:scale-[1.02] hover:shadow-[0_0_20px_rgba(10,102,194,1)]">
+                    <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.529-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                </a>
+                <!-- GitHub Link -->
+                <a href="https://github.com/rahboddeda" class="text-gray-400 hover:text-accent transition duration-150 transition duration-300 hover:scale-[1.02] hover:shadow-[0_0_20px_rgba(163,255,0,1)]">
+                    <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12 0C5.373 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.6.11.82-.26.82-.577 0-.285-.01-1.04-.015-2.04-3.34.725-4.04-1.61-4.04-1.61-.546-1.387-1.332-1.755-1.332-1.755-1.09-.745.08-.73.08-.73 1.205.085 1.838 1.238 1.838 1.238 1.07 1.833 2.809 1.304 3.49.997.108-.775.419-1.305.762-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.125-.3-.535-1.52.12-3.18 0 0 1-.32 3.3 1.23.955-.265 1.98-.398 3.004-.398 1.023 0 2.05.133 3.004.398 2.3-1.55 3.3-1.23 3.3-1.23.655 1.66.245 2.88.12 3.18.77.84 1.235 1.91 1.235 3.22 0 4.61-2.805 5.62-5.475 5.92.43.37.82 1.1.82 2.22 0 1.605-.015 2.89-.015 3.28 0 .32.22.69.82.57C20.565 21.8 24 17.302 24 12c0-6.627-5.373-12-12-12z" clip-rule="evenodd"/></svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black/80 py-6">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center text-xs text-gray-500">
+            <p>&copy; 2025@Rahul Boddeda.</p>
+            <p class="mt-2 md:mt-0">Feel Free to contact me anytime.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

@@ -1,18 +1,18 @@
-// server.js
-const express = require('express');
-const path = require('path');
+const express = require("express");
+const path = require("path");
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Serve static files from the 'public' directory
-app.use(express.static(path.join(__dirname, 'public')));
+// Serve static files (HTML, CSS, JS, images)
+app.use(express.static(path.join(__dirname, "public")));
 
-// Catch-all route to serve index.html for any other requests (e.g., direct access to sub-paths)
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+// Send index.html for root
+app.get("/", (req, res) => {
+    res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
-// Start the server
+// Start server
 app.listen(PORT, () => {
-    console.log(`Server is running on port http://localhost:3000/`);
+    console.log(`🚀 Portfolio running at http://localhost:${PORT}`);
 });

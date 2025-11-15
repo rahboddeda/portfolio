@@ -1,21 +1,11 @@
 {
-  "name": "rahul-boddeda-portfolio",
+  "name": "rahul-portfolio",
   "version": "1.0.0",
-  "description": "Professional portfolio website for Rahul Boddeda",
+  "description": "Portfolio website for Rahul Boddeda",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
   },
-  "keywords": [
-    "portfolio",
-    "node.js",
-    "express",
-    "vercel",
-    "html",
-    "tailwind"
-  ],
-  "author": "Rahul Boddeda",
-  "license": "MIT",
   "dependencies": {
     "express": "^4.19.2"
   }
